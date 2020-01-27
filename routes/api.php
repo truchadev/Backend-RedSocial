@@ -13,6 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+ //   return $request->user();
+//});
+
+Route::post('usuario/login', 'PassportController@login');
+Route::post('usuario/register', 'PassportController@register');
+Route::post('empresa/login', 'PassportController@login');
+Route::post('empresa/register', 'PassportController@register');
+Route::middleware('auth:api')->group(function () {
+    Route::get('usuario/user', 'PassportController@details');
 });
+
+// CUALQUIER RUTA NO EXISTENTE RECIBIRÁ NOT FOUND
+Route::fallback(function(){
+    return response()->json(['message' => 'OOOOPS! Algo no fué bien. La ruta no existe.'], 404);
+})->name('api.fallback.404');
