@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\User;
 use App\Empresa;
 use Illuminate\Http\Request;
@@ -12,17 +13,20 @@ class PassportController extends Controller
     {
         //ESTABLECER LA LÓGICA CON UNA VARIABLE EN $REQUEST DONDE PONGA SI ES EMPRESA O USUARIO. ESTARÁ OCULTA EN FORMULARIOS Y PREDEFINIDA SEGÚN ELIJA EL CLIENTE LA
         //OPCIÓN DE 'EMPRESA' O 'USUARIO'. --- IF{} ELSE{} ----
+
         if ($request->tipo == 'empresa') {
-            //return 'empresa';
+            //validamos campos
+            $this->validate($request, [
+                'name' => 'required|min:3',
+                'email' => 'required|email|unique:empresas',
+                'password' => 'required|min:6',
+            ]);
+
             //comprobación si el correo está asociado a una cuenta
             if (Empresa::where('email', $request->email)->exists()) {
                 return response()->json(['message' => "El correo ya está asociado a una cuenta"], 400);
             }
-            $this->validate($request, [
-                'name' => 'required|min:3',
-                'email' => 'required|email|unique:users',
-                'password' => 'required|min:6',
-            ]);
+
             $empresa = Empresa::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -31,15 +35,20 @@ class PassportController extends Controller
             $token = $empresa->createToken('TutsForWeb')->accessToken;
             return response()->json(['message' => 'Usuario registrado con éxito', 'token' => $token], 200);
         } else {
-            //comprobación si el correo está asociado a una cuenta
-            if (User::where('email', $request->email)->exists()) {
-                return response()->json(['message' => "El correo ya está asociado a una cuenta"], 400);
-            }
-            $this->validate($request, [
+
+            //Validamos los campos
+            $validator = $this->validate($request, [
                 'name' => 'required|min:3',
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:6',
             ]);
+
+            //comprobación si el correo está asociado a una cuenta
+            if (User::where('email', $request->email)->exists()) {
+                return response()->json(['message' => "El correo ya está asociado a una cuenta"], 400);
+            }
+
+
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -47,9 +56,11 @@ class PassportController extends Controller
             ]);
             $token = $user->createToken('TutsForWeb')->accessToken;
             return response()->json(['message' => 'Usuario registrado con éxito', 'token' => $token], 200);
+
         }
     }
-        /**
+
+    /**
      * Handles Login Request
      *
      * @param Request $request
