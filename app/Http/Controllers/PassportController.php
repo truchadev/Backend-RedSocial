@@ -15,6 +15,7 @@ class PassportController extends Controller
         //OPCIÓN DE 'EMPRESA' O 'USUARIO'. --- IF{} ELSE{} ----
 
         if ($request->tipo == 'empresa') {
+
             //validamos campos
             $this->validate($request, [
                 'name' => 'required|min:3',
