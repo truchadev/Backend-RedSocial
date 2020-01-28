@@ -12,10 +12,10 @@ $factory->define(Empresa::class, function (Faker $faker) {
         'email' => $faker ->unique()->safeEmail,
         'password' => $faker ->unique()->safeEmail,
         'about' => $faker -> paragraph($nbSentences = 5, $variableNbSentences = true),
-        'ciudad_id' => \App\Ciudads::all()->random()->id,
+        'ciudad_id' => \App\Ciudad::all()->random()->id,
         'direccion' => $faker -> address,
         'name_responsable' => $faker -> name,
-        'telefono' => $faker -> phoneNumber,
+        'telefono' => 96123456,
         'web'=> $faker -> url
     ];
 });

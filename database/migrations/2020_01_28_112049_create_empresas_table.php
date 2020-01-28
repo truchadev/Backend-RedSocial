@@ -28,11 +28,11 @@ class CreateEmpresasTable extends Migration
                 ->references('id')
                 ->onDelete('restrict')->nullable();
 
-            $table->string('direccion', 50)->nullable();
+            $table->string('direccion', 250)->nullable();
             $table->binary('imagen_logo')->nullable();
             $table->string('name_responsable', 50);
             $table->integer('telefono')->nullable()->unsigned();
-            $table->string('web', 50)->nullable();
+            $table->string('web', 250)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

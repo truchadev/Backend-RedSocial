@@ -26,8 +26,8 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => 12345678,
         'remember_token' => Str::random(10),
         'about' => $faker -> paragraph($nbSentences = 3, $variableNbSentences = true),
-        'ciudad_id' => \App\Ciudads::all()->random()->id,
+        'ciudad_id' => \App\Ciudad::all()->random()->id,
         'direccion'=> $faker->address,
-        'telefono' => $faker->phoneNumber
+        'telefono' => 665543261
     ];
 });

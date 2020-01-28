@@ -42,7 +42,7 @@ class CreateOfertasTable extends Migration
 
             $table->unsignedBigInteger('estudios_min_id');
             $table->foreign('estudios_min_id', 'fk_ofertas_estudios')
-                ->on('empresas')
+                ->on('estudios')
                 ->references('id')
                 ->onDelete('restrict');
 

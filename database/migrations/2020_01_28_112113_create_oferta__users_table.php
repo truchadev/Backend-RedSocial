@@ -40,7 +40,7 @@ class CreateOfertaUsersTable extends Migration
                 ->references('id')
                 ->onDelete('restrict');
 
-            $table->string('estado', 100);
+//            $table->string('estado', 100);
             $table->timestamps();
         });
     }

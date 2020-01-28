@@ -3,12 +3,14 @@
 use Illuminate\Database\Seeder;
 
 
-use App\Users;
-use App\Empresas;
-use App\Ofertas;
-use App\Oferta_Users;
-use App\Experiencia_Users;
-use App\Estudio_Users;
+use App\User;
+use App\Empresa;
+use App\Oferta;
+use App\Oferta_User;
+use App\Experiencia_User;
+use App\Estudio_User;
+
+
 
 
 class DatabaseSeeder extends Seeder
@@ -40,7 +42,7 @@ class DatabaseSeeder extends Seeder
         //Recorrer el json
         foreach (json_decode($json2) as $row) {
             DB::table('contratos')->insert([
-                "ColumnName" => $row->name
+                "tipo" => $row->ColumnName
             ]);
         }
 
@@ -52,7 +54,7 @@ class DatabaseSeeder extends Seeder
         //Recorrer el json
         foreach (json_decode($json3) as $row) {
             DB::table('estudios')->insert([
-                "ColumnName" => $row->name
+                "tipo" => $row->ColumnName
             ]);
         }
 
@@ -63,8 +65,8 @@ class DatabaseSeeder extends Seeder
         $json4 = file_get_contents($file4);
         //Recorrer el json
         foreach (json_decode($json4) as $row) {
-            DB::table('j_laborals')->insert([
-                "ColumnName" => $row->name
+            DB::table('j__laborals')->insert([
+                "tipo" => $row->ColumnName
             ]);
         }
 
@@ -76,15 +78,23 @@ class DatabaseSeeder extends Seeder
         //Recorrer el json
         foreach (json_decode($json5) as $row) {
             DB::table('tecnologias')->insert([
-                "ColumnName" => $row->name
+                "name" => $row->ColumnName
             ]);
         }
 
-        Factory(Users::class, 10)->create();
-        Factory(Empresas::class, 10)->create();
-        Factory(Ofertas::class, 50)->create();
-        Factory(Oferta_Users::class, 50)->create();
-        Factory(Experiencia_Users::class, 10)->create();
-        Factory(Estudio_Users::class, 10)->create();
+        //ESTADO
+        $estados = ["revisando","aceptado", "rechazado"];
+        foreach ($estados as $estado) {
+            DB::table('estados')->insert([
+                "tipo" => $estado
+            ]);
+        }
+
+        Factory(User::class, 10)->create();
+        Factory(Empresa::class, 10)->create();
+        Factory(Oferta::class, 50)->create();
+        Factory(Oferta_User::class, 50)->create();
+        Factory(Experiencia_User::class, 75)->create();
+        Factory(Estudio_User::class, 70)->create();
     }
 }

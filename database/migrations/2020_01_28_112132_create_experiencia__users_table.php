@@ -20,8 +20,8 @@ class CreateExperienciaUsersTable extends Migration
             $table->string('fecha_inicio');
             $table->string('fecha_fin');
 
-            $table->unsignedBigInteger('iduser');
-            $table->foreign('iduser', 'fk_experiencia__users')
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id', 'fk_experiencia__users_users')
                 ->on('users')
                 ->references('id')
                 ->onDelete('restrict');
