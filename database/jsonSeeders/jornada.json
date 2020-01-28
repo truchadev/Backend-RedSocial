@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "ColumnName": "Parcial - Mañana"
+    },
+    {
+      "ColumnName": "Intensiva - Indiferente"
+    },
+    {
+      "ColumnName": "Intensiva - Mañana"
+    },
+    {
+      "ColumnName": "Completa"
+    },
+    {
+      "ColumnName": "Indiferente"
+    },
+    {
+      "ColumnName": "Parcial - Indiferente"
+    },
+    {
+      "ColumnName": "Parcial - Tarde"
+    },
+    {
+      "ColumnName": "Intensiva - Tarde"
+    },
+    {
+      "ColumnName": "Intensiva - Noche"
+    },
+    {
+      "ColumnName": "Parcial - Noche"
+    }
+  ]
+}
