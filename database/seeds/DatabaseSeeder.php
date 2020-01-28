@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
         //Recorrer el json
         foreach (json_decode($json2) as $row) {
             DB::table('contratos')->insert([
-                "name" => $row->name
+                "ColumnName" => $row->name
             ]);
         }
 
@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
         //Recorrer el json
         foreach (json_decode($json3) as $row) {
             DB::table('estudios')->insert([
-                "name" => $row->name
+                "ColumnName" => $row->name
             ]);
         }
 
@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
         //Recorrer el json
         foreach (json_decode($json4) as $row) {
             DB::table('j_laborals')->insert([
-                "name" => $row->name
+                "ColumnName" => $row->name
             ]);
         }
 
@@ -76,7 +76,7 @@ class DatabaseSeeder extends Seeder
         //Recorrer el json
         foreach (json_decode($json5) as $row) {
             DB::table('tecnologias')->insert([
-                "name" => $row->name
+                "ColumnName" => $row->name
             ]);
         }
 
