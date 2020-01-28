@@ -1,55 +1,53 @@
-{
-  "data": [
+[
     {
-      "ColumnName": "Bachillerato"
+        "ColumnName": "Bachillerato"
     },
     {
-      "ColumnName": "Ciclo Formativo Grado Medio"
+        "ColumnName": "Ciclo Formativo Grado Medio"
     },
     {
-      "ColumnName": "Ciclo Formativo Grado Superior"
+        "ColumnName": "Ciclo Formativo Grado Superior"
     },
     {
-      "ColumnName": "Diplomatura"
+        "ColumnName": "Diplomatura"
     },
     {
-      "ColumnName": "Doctorado"
+        "ColumnName": "Doctorado"
     },
     {
-      "ColumnName": "Educación Secundaria Obligatoria"
+        "ColumnName": "Educación Secundaria Obligatoria"
     },
     {
-      "ColumnName": "Enseñanzas artísticas (regladas)"
+        "ColumnName": "Enseñanzas artísticas (regladas)"
     },
     {
-      "ColumnName": "Formación Profesional Grado Medio"
+        "ColumnName": "Formación Profesional Grado Medio"
     },
     {
-      "ColumnName": "Formación Profesional Grado Superior"
+        "ColumnName": "Formación Profesional Grado Superior"
     },
     {
-      "ColumnName": "Grado"
+        "ColumnName": "Grado"
     },
     {
-      "ColumnName": "Ingeniería Superior"
+        "ColumnName": "Ingeniería Superior"
     },
     {
-      "ColumnName": "Ingeniería Técnica"
+        "ColumnName": "Ingeniería Técnica"
     },
     {
-      "ColumnName": "Licenciatura"
+        "ColumnName": "Licenciatura"
     },
     {
-      "ColumnName": "Máster"
+        "ColumnName": "Máster"
     },
     {
-      "ColumnName": "Otros cursos y formación no reglada"
+        "ColumnName": "Otros cursos y formación no reglada"
     },
     {
-      "ColumnName": "Otros títulos, certificaciones y carnés"
+        "ColumnName": "Otros títulos, certificaciones y carnés"
     },
     {
-      "ColumnName": "Sin estudios"
+        "ColumnName": "Sin estudios"
     }
-  ]
-}
+]

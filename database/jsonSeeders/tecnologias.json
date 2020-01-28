@@ -1,150 +1,149 @@
-{
-  "data": [
-    {"ColumnName": "React"
+[
+    {
+        "ColumnName": "React"
     },
     {
-      "ColumnName": "ASP.NET MVC"
+        "ColumnName": "ASP.NET MVC"
     },
     {
-      "ColumnName": "AngularJS"
+        "ColumnName": "AngularJS"
     },
     {
-      "ColumnName": "Ruby on Rails"
+        "ColumnName": "Ruby on Rails"
     },
     {
-      "ColumnName": "Angular"
+        "ColumnName": "Angular"
     },
     {
-      "ColumnName": "Vue.js"
+        "ColumnName": "Vue.js"
     },
     {
-      "ColumnName": "Django"
+        "ColumnName": "Django"
     },
     {
-      "ColumnName": "Laravel"
+        "ColumnName": "Laravel"
     },
     {
-      "ColumnName": "ASP.NET"
+        "ColumnName": "ASP.NET"
     },
     {
-      "ColumnName": "Spring"
+        "ColumnName": "Spring"
     },
     {
-      "ColumnName": "Express"
+        "ColumnName": "Express"
     },
     {
-      "ColumnName": "Flask"
+        "ColumnName": "Flask"
     },
     {
-      "ColumnName": "Symfony"
+        "ColumnName": "Symfony"
     },
     {
-      "ColumnName": "Meteor"
+        "ColumnName": "Meteor"
     },
     {
-      "ColumnName": "CodeIgniter"
+        "ColumnName": "CodeIgniter"
     },
     {
-      "ColumnName": "JSF"
+        "ColumnName": "JSF"
     },
     {
-      "ColumnName": "Ember.js"
+        "ColumnName": "Ember.js"
     },
     {
-      "ColumnName": "Google Web Toolkit"
+        "ColumnName": "Google Web Toolkit"
     },
     {
-      "ColumnName": ".NET Core"
+        "ColumnName": ".NET Core"
     },
     {
-      "ColumnName": "CakePHP"
+        "ColumnName": "CakePHP"
     },
     {
-      "ColumnName": "Polymer"
+        "ColumnName": "Polymer"
     },
     {
-      "ColumnName": "Play"
+        "ColumnName": "Play"
     },
     {
-      "ColumnName": "Sails.js"
+        "ColumnName": "Sails.js"
     },
     {
-      "ColumnName": "Zend"
+        "ColumnName": "Zend"
     },
     {
-      "ColumnName": "Yii"
+        "ColumnName": "Yii"
     },
     {
-      "ColumnName": "JHipster"
+        "ColumnName": "JHipster"
     },
     {
-      "ColumnName": "Tornado"
+        "ColumnName": "Tornado"
     },
     {
-      "ColumnName": "Sinatra"
+        "ColumnName": "Sinatra"
     },
     {
-      "ColumnName": "JavaScript"
+        "ColumnName": "JavaScript"
     },
     {
-      "ColumnName": "Java"
+        "ColumnName": "Java"
     },
     {
-      "ColumnName": "PHP"
+        "ColumnName": "PHP"
     },
     {
-      "ColumnName": "Python"
+        "ColumnName": "Python"
     },
     {
-      "ColumnName": "C#"
+        "ColumnName": "C#"
     },
     {
-      "ColumnName": "C++"
+        "ColumnName": "C++"
     },
     {
-      "ColumnName": "Ruby"
+        "ColumnName": "Ruby"
     },
     {
-      "ColumnName": "CSS"
+        "ColumnName": "CSS"
     },
     {
-      "ColumnName": "C"
+        "ColumnName": "C"
     },
     {
-      "ColumnName": "Objective-C"
+        "ColumnName": "Objective-C"
     },
     {
-      "ColumnName": "Perl"
+        "ColumnName": "Perl"
     },
     {
-      "ColumnName": "Shell"
+        "ColumnName": "Shell"
     },
     {
-      "ColumnName": "Scala"
+        "ColumnName": "Scala"
     },
     {
-      "ColumnName": "Go"
+        "ColumnName": "Go"
     },
     {
-      "ColumnName": "Haskell"
+        "ColumnName": "Haskell"
     },
     {
-      "ColumnName": "Matlab"
+        "ColumnName": "Matlab"
     },
     {
-      "ColumnName": "Swift"
+        "ColumnName": "Swift"
     },
     {
-      "ColumnName": "Clojure"
+        "ColumnName": "Clojure"
     },
     {
-      "ColumnName": "Groovy"
+        "ColumnName": "Groovy"
     },
     {
-      "ColumnName": "Visual"
+        "ColumnName": "Visual"
     },
     {
-      "ColumnName": "Basic"
+        "ColumnName": "Basic"
     }
-  ]
-}
+]
