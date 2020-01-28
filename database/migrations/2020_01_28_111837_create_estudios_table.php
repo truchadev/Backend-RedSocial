@@ -15,6 +15,7 @@ class CreateEstudiosTable extends Migration
     {
         Schema::create('estudios', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('tipo', 50);
             $table->timestamps();
         });
     }

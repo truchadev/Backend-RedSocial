@@ -15,6 +15,22 @@ class CreateEstudioUsersTable extends Migration
     {
         Schema::create('estudio__users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name', 50);
+            $table->string('centro', 50);
+            $table->string('fecha_inicio');
+            $table->string('fecha_fin');
+
+            $table->unsignedBigInteger('iduser');
+            $table->foreign('iduser', 'fk_estudio__users_users')
+                ->on('users')
+                ->references('id')
+                ->onDelete('restrict');
+
+            $table->unsignedBigInteger('ciudad_id');
+            $table->foreign('ciudad_id', 'fk_estudio__users_ciudads')
+                ->on('ciudads')
+                ->references('id')
+                ->onDelete('restrict');
             $table->timestamps();
         });
     }
