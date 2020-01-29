@@ -28,11 +28,11 @@ class CreateOfertasTable extends Migration
             $table->mediumText('descripcion');
             $table->integer('experiencia_min')->unsigned();
 
-            $table->unsignedBigInteger('tecnologia_id');
-            $table->foreign('tecnologia_id', 'fk_ofertas_tecnologias')
-                ->on('tecnologias')
-                ->references('id')
-                ->onDelete('restrict');
+//            $table->unsignedBigInteger('ofertas_tecnologia_id');
+//            $table->foreign('ofertas_tecnologia_id', 'fk_ofertas_ofertas__tecnologias')
+//                ->on('tecnologias')
+//                ->references('id')
+//                ->onDelete('restrict');
 
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id', 'fk_ofertas_empresas')

@@ -28,6 +28,12 @@ Route::middleware('auth:api')->group(function () {
     Route::get('usuario/user', 'PassportController@details');
 });
 
+
+Route::post('empresa/empleo/create', 'OfertaController@create');
+
+
+
+
 // CUALQUIER RUTA NO EXISTENTE RECIBIRÁ NOT FOUND
 Route::fallback(function(){
     return response()->json(['message' => 'OOOOPS! Algo no fué bien. La ruta no existe.'], 404);
