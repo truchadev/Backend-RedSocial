@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOfertaUsersTable extends Migration
+class CreateTecnologiaUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,28 +13,21 @@ class CreateOfertaUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('oferta__users', function (Blueprint $table) {
+        Schema::create('tecnologia__users', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('oferta_id');
-            $table->foreign('oferta_id', 'fk_oferta__users_ofertas')
-                ->on('ofertas')
-                ->references('id')
-                ->onDelete('restrict');
-
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id', 'fk_oferta__users_users')
+            $table->foreign('user_id', 'fk_tecnologia__users_users')
                 ->on('users')
                 ->references('id')
                 ->onDelete('restrict');
 
-            $table->unsignedBigInteger('estado_id');
-            $table->foreign('estado_id', 'fk_oferta__users_estados')
-                ->on('estados')
+            $table->unsignedBigInteger('tecnologia_id');
+            $table->foreign('tecnologia_id', 'fk_tecnologia__users_tecnologias')
+                ->on('tecnologias')
                 ->references('id')
                 ->onDelete('restrict');
 
-//            $table->string('estado', 100);
             $table->timestamps();
         });
     }
@@ -46,6 +39,6 @@ class CreateOfertaUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('oferta__users');
+        Schema::dropIfExists('tecnologia__users');
     }
 }
