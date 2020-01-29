@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOfertaTecnologiasTable extends Migration
+class CreateOfertasTecnologiasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOfertaTecnologiasTable extends Migration
      */
     public function up()
     {
-        Schema::create('oferta__tecnologias', function (Blueprint $table) {
+        Schema::create('ofertas__tecnologias', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('oferta_id');
@@ -39,6 +39,6 @@ class CreateOfertaTecnologiasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('oferta__tecnologias');
+        Schema::dropIfExists('ofertas__tecnologias');
     }
 }

@@ -47,7 +47,7 @@ class CreateOfertasTable extends Migration
                 ->onDelete('restrict');
 
             $table->unsignedBigInteger('tipo_contrato_id');
-            $table->foreign('estudios_min_id', 'fk_ofertas_contratos')
+            $table->foreign('tipo_contrato_id', 'fk_ofertas_contratos')
                 ->on('contratos')
                 ->references('id')
                 ->onDelete('restrict');
