@@ -64,7 +64,8 @@ class PassportController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'ciudad_id' => $request->ciudad_id
+                'ciudad_id' => $request->ciudad_id,
+
             ]);
             $token = $user->createToken('TutsForWeb')->accessToken;
 
