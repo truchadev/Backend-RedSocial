@@ -1,53 +1,41 @@
 [
     {
-        "ColumnName": "Bachillerato"
+        "ColumnName": "Indefinido"
     },
     {
-        "ColumnName": "Ciclo Formativo Grado Medio"
+        "ColumnName": "De duración determinada"
     },
     {
-        "ColumnName": "Ciclo Formativo Grado Superior"
+        "ColumnName": " Otros contratos"
     },
     {
-        "ColumnName": "Diplomatura"
+        "ColumnName": "Autónomo"
     },
     {
-        "ColumnName": "Doctorado"
+        "ColumnName": "A tiempo parcial"
     },
     {
-        "ColumnName": "Educación Secundaria Obligatoria"
+        "ColumnName": "Formativo"
     },
     {
-        "ColumnName": "Enseñanzas artísticas (regladas)"
+        "ColumnName": "Fijo discontinuo"
     },
     {
-        "ColumnName": "Formación Profesional Grado Medio"
+        "ColumnName": "De relevo"
     },
     {
-        "ColumnName": "Formación Profesional Grado Superior"
+        "ColumnName": " De duración determinada"
     },
     {
-        "ColumnName": "Grado"
+        "ColumnName": " De duración determinada"
     },
     {
-        "ColumnName": "Ingeniería Superior"
+        "ColumnName": " De duración determinada"
     },
     {
-        "ColumnName": "Ingeniería Técnica"
+        "ColumnName": " De duración determinada"
     },
     {
-        "ColumnName": "Licenciatura"
-    },
-    {
-        "ColumnName": "Máster"
-    },
-    {
-        "ColumnName": "Otros cursos y formación no reglada"
-    },
-    {
-        "ColumnName": "Otros títulos, certificaciones y carnés"
-    },
-    {
-        "ColumnName": "Sin estudios"
+        "ColumnName": " De duración determinada"
     }
 ]
