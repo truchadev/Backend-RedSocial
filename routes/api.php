@@ -21,6 +21,9 @@ Route::post('usuario/login', 'PassportController@login');
 Route::post('usuario/register', 'PassportController@register');
 Route::post('empresa/login', 'PassportController@login');
 Route::post('empresa/register', 'PassportController@register');
+//ruta para activacion de cuenta por notificación por email
+Route::get('register/activate/{token}', 'PassportController@signupActivate');
+
 Route::middleware('auth:api')->group(function () {
     Route::get('usuario/user', 'PassportController@details');
 });

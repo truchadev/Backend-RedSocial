@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 50);
-            $table->string('prim_apellido', 50);
+            $table->string('prim_apellido', 50)->nullable();
             $table->string('seg_apellido', 50)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -35,7 +35,13 @@ class CreateUsersTable extends Migration
             $table->string('especialidad', 50)->nullable();
             $table->integer('telefono' )->nullable()->unsigned();
             $table->rememberToken();
+            //add fo activation and notifications
+            $table->boolean('active')->default(false);
+            $table->string('activation_token')->nullable();
+
             $table->timestamps();
+            //add fo activation and notifications
+            $table->softDeletes()->nullable();
         });
     }
 

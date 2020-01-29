@@ -33,8 +33,14 @@ class CreateEmpresasTable extends Migration
             $table->string('name_responsable', 50);
             $table->integer('telefono')->nullable()->unsigned();
             $table->string('web', 250)->nullable();
+            //add fo activation and notifications
+            $table->boolean('active')->default(false);
+            $table->string('activation_token')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
+            //add fo activation and notifications
+            $table->softDeletes()->nullable();
         });
     }
 
