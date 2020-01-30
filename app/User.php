@@ -51,4 +51,15 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Tecnologias');
     }
 
+    public function ciudades(){
+        return $this->belongsTo('App\Ciudads');
+    }
+
+    public function estudios(){
+        return $this->belongsToMany('App\Estudios');
+    }
+
+    public function experiencias(){
+        return $this->belongsTo('App\Experiencia_Users');
+    }
 }

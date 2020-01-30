@@ -38,3 +38,6 @@ Route::post('empresa/empleo/create', 'OfertaController@create');
 Route::fallback(function(){
     return response()->json(['message' => 'OOOOPS! Algo no fué bien. La ruta no existe.'], 404);
 })->name('api.fallback.404');
+
+
+Route::get('user/ciudad/{id?}', 'CiudadController@show');

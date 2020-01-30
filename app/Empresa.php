@@ -43,7 +43,12 @@ class Empresa extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function ciudades(){
+        return $this->belongsTo('App\Ciudads');
+    }
 
-
+    public function ofertas(){
+        return $this->hasMany('App\Ofertas');
+    }
 
 }

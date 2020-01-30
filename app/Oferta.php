@@ -44,4 +44,25 @@ class Oferta extends Model
         return $this->belongsToMany('App\Tecnologias', 'ofertas__tecnologias', 'tecnologia_id', 'oferta_id');
     }
 
+    public function ciudades(){
+        return $this->belongsTo('App\Ciudads');
+    }
+
+    public function contratos(){
+        return $this->belongsTo('App\Contratos');
+    }
+
+    public function estudios(){
+        return $this->belongsTo('App\Estudios');
+    }
+
+    public function j_laborales(){
+        return $this->belongsTo('App\J_Laborals');
+    }
+
+    public function empresas(){
+        return $this->belongsTo('App\Emprsas');
+    }
+
+
 }

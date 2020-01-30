@@ -11,7 +11,7 @@ class Tecnologia extends Model
     }
 
     public function ofertas(){
-        return $this->belongsToMany('App\Ofertas', 'ofertas__tecnologias', 'oferta_id', 'tecnologia_id');
+        return $this->belongsToMany('App\Ofertas', 'ofertas__tecnologias');
     }
 
 }
