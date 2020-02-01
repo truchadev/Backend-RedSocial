@@ -40,4 +40,17 @@ Route::fallback(function(){
 })->name('api.fallback.404');
 
 
-Route::get('user/ciudad/{id?}', 'CiudadController@show');
+// PÚBLICOS
+Route::get('ciudades', 'CiudadController@show');
+Route::get('tecnologias', 'TecnologiaController@show');
+Route::get('estudios', 'EstudioController@show');
+Route::get('contratos', 'ContratoController@show');
+Route::get('jornadas', 'JLaboralController@show');
+Route::get('estados', 'EstadoController@show');
+Route::get('ofertas', 'OfertaController@mostrar');
+
+//Empresa
+Route::get('empresa/ofertas-empresa/{id}', 'EmpresaController@showOfertas');
+Route::get('empresa/ofertas-user/{id}', 'EmpresaController@showUsuarios');
+Route::patch('empresa/modificar-estado/{id}', 'EmpresaController@modificarEstado');
+Route::post('empresa/oferta', 'EmpresaController@nuevaOferta');

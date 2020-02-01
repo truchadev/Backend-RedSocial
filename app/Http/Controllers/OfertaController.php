@@ -129,4 +129,10 @@ class OfertaController extends Controller
 //        Session::flash('success', 'Marca "' . $marca->nombre . '" eliminada');
 //        return redirect()->route('marcas.index');
     }
+
+    public function mostrar(){
+
+        $ofertas = DB::table('ofertas')->get();
+        return $ofertas;
+    }
 }
