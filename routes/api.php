@@ -42,16 +42,26 @@ use Illuminate\Http\Request;
 
 //NUEVAS RUTAS PARA API
 
-Route::group(['prefix' => 'auth'], function () {
+Route::group(['prefix' => 'auth'], function () {//todas las rutas así en postman http://127.0.0.1:8000/api/auth/login
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('logout', 'AuthController@logout');
-//        Route::get('user', 'AuthController@user');//De momento sin uso...
+        //PARA CONSULTAR PERFIL DE EMPRESA Y USUARIO CON EL TOKEN
+        Route::get('user', 'AuthController@user');
+
     });
 });
 
+Route::group(['middleware' => 'auth:api'], function (){//todas las rutas así en postman http://127.0.0.1:8000/api/empresa
+    //USERS
+        //aquí las rutas de users...
+
+    //EMPRESAS
+        //aquí las rutas de empresas...
+
+});
 //fin nuevas rutas
 
 
