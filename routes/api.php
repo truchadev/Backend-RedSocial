@@ -41,7 +41,16 @@ use Illuminate\Http\Request;
 //Route::post('empresa/empleo/create', 'OfertaController@create');
 
 //NUEVAS RUTAS PARA API
+//PÚBLICOS
+Route::get('ciudades', 'CiudadController@show');
+Route::get('tecnologias', 'TecnologiaController@show');
+Route::get('estudios', 'EstudioController@show');
+Route::get('contratos', 'ContratoController@show');
+Route::get('jornadas', 'JLaboralController@show');
+Route::get('estados', 'EstadoController@show');
+Route::get('ofertas', 'OfertaController@mostrar');
 
+//AUTH
 Route::group(['prefix' => 'auth'], function () {//todas las rutas así en postman http://127.0.0.1:8000/api/auth/login
     Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
@@ -54,12 +63,17 @@ Route::group(['prefix' => 'auth'], function () {//todas las rutas así en postma
     });
 });
 
+//PARA EL RESTO CON VALIDACIÓN TOKEN
 Route::group(['middleware' => 'auth:api'], function (){//todas las rutas así en postman http://127.0.0.1:8000/api/empresa
     //USERS
         //aquí las rutas de users...
 
     //EMPRESAS
         //aquí las rutas de empresas...
+    Route::get('empresa/ofertas-empresa/{id}', 'EmpresaController@showOfertas');
+    Route::get('empresa/ofertas-user/{id}', 'EmpresaController@showUsuarios');
+    Route::patch('empresa/modificar-estado/{id}', 'EmpresaController@modificarEstado');
+    Route::post('empresa/oferta', 'EmpresaController@nuevaOferta');
 
 });
 //fin nuevas rutas
