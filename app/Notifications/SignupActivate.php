@@ -2,8 +2,7 @@
 
 namespace App\Notifications;
 
-use
-    Illuminate\Bus\Queueable;
+use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -45,10 +44,10 @@ class SignupActivate extends Notification
 //                    ->line('The introduction to the notification.')
 //                    ->action('Notification Action', url('/'))
 //                    ->line('Thank you for using our application!');
-        $url = url('/api/register/activate/' . $notifiable->activation_token);
+        $url = url('api/auth/login' . $notifiable->activation_token);
         return (new MailMessage)
             ->subject('Confirma tu cuenta')
-            ->line('Gracias por suscribirte! Antes de continuar, debes configurar tu cuenta.')
+            ->line('Gracias por suscribirte!')
             ->action('Confirmar tu cuenta', url($url))
             ->line('Muchas gracias por utilizar nuestra aplicación!');
     }

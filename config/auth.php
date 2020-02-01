@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -44,12 +44,20 @@ return [
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
-           // 'hash' => false,
+//            'hash' => false,
         ],
-        'empresas' => [
-            'driver' => 'passport',
-            'provider' => 'empresas',
-        ],
+//        'empresas' => [
+//            'driver' => 'passport',
+//            'provider' => 'empresas',
+//        ],
+//        'users' => [
+//            'driver' => 'passport',
+//            'provider' => 'users',
+//        ],
+//        'passwords' => [
+//            'driver' => 'passport',
+//            'provider' => 'users',
+//        ],
 
     ],
 
@@ -79,11 +87,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Empresa::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+//         'users' => [
+//             'driver' => 'eloquent',
+//             'table' => 'users',
+//         ],
     ],
 
     /*
