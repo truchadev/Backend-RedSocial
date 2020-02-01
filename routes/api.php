@@ -14,43 +14,50 @@ use Illuminate\Http\Request;
 */
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
- //   return $request->user();
+//   return $request->user();
 //});
+//
+//Route::post('usuario/login', 'PassportController@login');
+//Route::post('usuario/register', 'PassportController@register');
+////Route::post('empresa/login', 'PassportController@login');
+//Route::post('empresa/register', 'PassportController@register');
+////ruta para activacion de cuenta por notificación por email
+//Route::get('register/activate/{token}', 'PassportController@signupActivate');
+//
+///*
+// * TODAS LAS RUTAS QUE NECESITEN AUTENTICACIÓN DEBEN ESTAR
+// * DENTRO DE ROUTE:MIDDLEWARE.
+// *
+// * **/
+//Route::middleware('auth:api')->group(function () {
+////    Route::post('usuario/login', 'PassportController@login');
+//
+//    Route::post('empresa/login', 'PassportController@login');
+//
+//    Route::get('usuario/user', 'PassportController@details');
+//});
+//
+//
+//Route::post('empresa/empleo/create', 'OfertaController@create');
 
-Route::post('usuario/login', 'PassportController@login');
-Route::post('usuario/register', 'PassportController@register');
-Route::post('empresa/login', 'PassportController@login');
-Route::post('empresa/register', 'PassportController@register');
-//ruta para activacion de cuenta por notificación por email
-Route::get('register/activate/{token}', 'PassportController@signupActivate');
+//NUEVAS RUTAS PARA API
 
-Route::middleware('auth:api')->group(function () {
-    Route::get('usuario/user', 'PassportController@details');
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('signup', 'AuthController@signup');
+
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('logout', 'AuthController@logout');
+//        Route::get('user', 'AuthController@user');//De momento sin uso...
+    });
 });
 
-
-Route::post('empresa/empleo/create', 'OfertaController@create');
-
-
+//fin nuevas rutas
 
 
 // CUALQUIER RUTA NO EXISTENTE RECIBIRÁ NOT FOUND
-Route::fallback(function(){
+Route::fallback(function () {
     return response()->json(['message' => 'OOOOPS! Algo no fué bien. La ruta no existe.'], 404);
 })->name('api.fallback.404');
 
 
-// PÚBLICOS
-Route::get('ciudades', 'CiudadController@show');
-Route::get('tecnologias', 'TecnologiaController@show');
-Route::get('estudios', 'EstudioController@show');
-Route::get('contratos', 'ContratoController@show');
-Route::get('jornadas', 'JLaboralController@show');
-Route::get('estados', 'EstadoController@show');
-Route::get('ofertas', 'OfertaController@mostrar');
-
-//Empresa
-Route::get('empresa/ofertas-empresa/{id}', 'EmpresaController@showOfertas');
-Route::get('empresa/ofertas-user/{id}', 'EmpresaController@showUsuarios');
-Route::patch('empresa/modificar-estado/{id}', 'EmpresaController@modificarEstado');
-Route::post('empresa/oferta', 'EmpresaController@nuevaOferta');
