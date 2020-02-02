@@ -33,84 +33,83 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'required|max:50|unique:marcas',
-        ], ['nombre.unique' => 'No se ha grabado porque la marca introducida ya la has usado antes. Introduce otra por favor.',
-            'nombre.required' => 'Introduce la marca por favor.']);
-        if ($validator->fails()) {
-            return redirect('marcas/create')
-                ->withErrors($validator)
-                ->withInput();
-        }
-        Marca::create($request->except('_token'));
+
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Marca  $marca
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $user = DB::table('users')->first('usuario_id', $id);
-//        return response()->json(["data" => [
-//            "user" => $user,
-//            "status" => 200,
-//        ]]);
 
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Marca  $marca
-     * @return \Illuminate\Http\Response
      */
-    public function edit(Marca $marca)
+    public function edit(Request $request)
     {
+
 
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Marca  $marca
-     * @return \Illuminate\Http\Response
+     *          PERFIL
      */
-    public function update(Request $request, Marca $marca)
+    public function update(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'required|max:50|unique:marcas',
-        ], [
-            'nombre.unique' => 'No se ha grabado porque la marca introducida ya la has usado antes. Introduce otra por favor.',
-            'nombre.required' => 'Introduce la marca por favor.'
+        return $request->user();
+        $validator = $this->validate($request, [
+            'name' => 'alpha|max:255',
+            'prim_apellido' => 'alpha|max:255',
+            'seg_apellido' => 'alpha|max:255',
+            'email' => 'email|unique:users',
+            'password' => 'min:6',
+            'about' => 'max:6|alpha_num',
+            'ciudad_id' => 'numeric',
+            'direccion' => 'max:255',
+            'imagen' => 'url',
+            'sexo' => 'alpha',
+            'especialidad' => '',
+            'telefono' => 'numeric',
         ]);
-        if ($validator->fails()) {
-            return redirect()->route('marcas.edit', $marca->id)->withErrors($validator)->withInput();
-            // equivalente redirect('marcas/'. $marca->id.'/edit')->withErrors($validator)->withInput();
-        }
-        $input = $request->all();
-        $marca->fill($input)->save();
 
+        $datos = $request->all();
+
+        $user = DB::table('users')
+            ->where('id', $request->user()->id)
+            ->update($datos);
+
+        if (!$user) {
+            return response()->json(['data' => [
+                "error" => "Algo falló en el servidor. Inténtelo más tarde."
+            ]]);
+        }
+        return response()->json(["data" => [
+            "message" => "Cambios realizados correctamente.",
+            "state" => 200]
+        ], 200);
+        //route
+        Route::post('user/update', 'UserController@update');
     }
+
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Marca  $marca
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Marca $marca)
     {
-        $marca->delete();
+
 
     }
 }
