@@ -64,7 +64,7 @@ Route::group(['prefix' => 'auth'], function () {//todas las rutas así en postma
 });
 
 //PARA EL RESTO CON VALIDACIÓN TOKEN
-Route::group(['middleware' => 'auth:api'], function (){//todas las rutas así en postman http://127.0.0.1:8000/api/empresa
+//Route::group(['middleware' => 'auth:api'], function (){//todas las rutas así en postman http://127.0.0.1:8000/api/empresa
     //USERS
         //aquí las rutas de users...
 
@@ -74,8 +74,10 @@ Route::group(['middleware' => 'auth:api'], function (){//todas las rutas así en
     Route::get('empresa/ofertas-user/{id}', 'EmpresaController@showUsuarios');
     Route::patch('empresa/modificar-estado/{id}', 'EmpresaController@modificarEstado');
     Route::post('empresa/oferta', 'EmpresaController@nuevaOferta');
-
-});
+    Route::delete('empresa/oferta-delete/{id}', 'EmpresaController@deleteOferta');
+    Route::delete('empresa/delete/{id}', 'EmpresaController@deleteEmpresa');
+    Route::patch('empresa/editar/{id}', 'EmpresaController@editar');
+//});
 //fin nuevas rutas
 
 

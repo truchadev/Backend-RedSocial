@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Empresa extends Authenticatable
 {
-    use HasApiTokens, Notifiable, SoftDeletes;
+    use HasApiTokens, Notifiable;
 
     //add fo activation and notifications
     protected $dates = ['deleted_at'];
@@ -22,7 +22,7 @@ class Empresa extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'active', 'activation_token'
+        'name', 'email', 'password', 'active', 'activation_token', 'ciudad_id', 'name_responsable', 'cif', 'direccion', 'imagen_logo', 'telefono', 'web',
     ];
 
     /**
