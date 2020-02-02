@@ -16,7 +16,6 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         if ($request->tipo === "usuario") {
-
             //Validamos los campos
             $validator = $this->validate($request, [
                 'name' => 'required|min:3',
@@ -24,45 +23,37 @@ class AuthController extends Controller
                 'password' => 'required|min:6',
                 'ciudad_id' => 'required|min:1',
             ]);
-
             $user = new User([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
                 'ciudad_id' => $request->ciudad_id
             ]);
-
             $user->save();
-
             //notificacion por email de datos
 //            $user->notify(new SignupActivate($user));
-
             return response()->json(["data" => [
                 "message" => "Usuario registrado correctamente",
                 "state" => 200]
             ], 200);
-
         } else {
-
             $request->validate([
                 'name' => 'required|min:3',
                 'email' => 'required|email|unique:empresas',
                 'password' => 'required|min:6',
                 'ciudad_id' => 'min:1',
+                'name_responsable'=>'max:255|alpha'
             ]);
-
             $empresas = new User([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'ciudad_id' => $request->ciudad_id
+                'ciudad_id' => $request->ciudad_id,
+                'name_responsable'=> $request->name_responsable
             ]);
-
             $empresas->save();
-
             //notificacion por email de datos
 //            $empresas->notify(new SignupActivate($empresas));
-
             return response()->json(["data" => [
                 "message" => "Usuario registrado",
                 "state" => 200]
@@ -81,6 +72,10 @@ class AuthController extends Controller
         //LLamada a BBDD y traemos datos cliente
         $consulta = DB::table('users')->where('email', $request->email)->get();
 
+        //LLamada a BBDD y traemos datos empresa
+        $consultaEmpresa = DB::table('empresas')->where('email', $request->email)->get();
+
+
         //Comprobamos si array estrá vacío. Si lo está, no ha encontrado datos en BBDD que coincidan.
         if (sizeof($consulta) == "") {
             return response()->json(["data" => [
@@ -92,7 +87,7 @@ class AuthController extends Controller
         if ($request->tipo === 'usuario') {
             $cliente = User::find($consulta[0]->id);
         } else {
-            $cliente = Empresa::find($consulta[0]->id);
+            $cliente = Empresa::find($consultaEmpresa[0]->id);
         }
 
         if (!$cliente) {

@@ -30,7 +30,7 @@ class CreateEmpresasTable extends Migration
 
             $table->string('direccion', 250)->nullable();
             $table->binary('imagen_logo')->nullable();
-            $table->string('name_responsable', 50);
+            $table->string('name_responsable', 50)->nullable();;
             $table->integer('telefono')->nullable()->unsigned();
             $table->string('web', 250)->nullable();
             //add fo activation and notifications
