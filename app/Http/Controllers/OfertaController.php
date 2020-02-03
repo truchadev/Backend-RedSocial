@@ -135,4 +135,8 @@ class OfertaController extends Controller
         $ofertas = DB::table('ofertas')->get();
         return $ofertas;
     }
+
+
+
+
 }

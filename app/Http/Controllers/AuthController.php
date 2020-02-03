@@ -42,9 +42,9 @@ class AuthController extends Controller
                 'email' => 'required|email|unique:empresas',
                 'password' => 'required|min:6',
                 'ciudad_id' => 'min:1',
-                'name_responsable'=>'max:255|alpha'
+               // 'name_responsable'=>'max:255|alpha'
             ]);
-            $empresas = new User([
+            $empresas = new Empresa([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
@@ -55,7 +55,7 @@ class AuthController extends Controller
             //notificacion por email de datos
 //            $empresas->notify(new SignupActivate($empresas));
             return response()->json(["data" => [
-                "message" => "Usuario registrado",
+                "message" => "Empresa registrada",
                 "state" => 200]
             ], 200);
         }
@@ -69,15 +69,19 @@ class AuthController extends Controller
             'remember_me' => 'boolean',
         ]);
 
-        //LLamada a BBDD y traemos datos cliente
-        $consulta = DB::table('users')->where('email', $request->email)->get();
+        if($request->tipo === 'usuario'){
+            //LLamada a BBDD y traemos datos cliente
+            $clientes = DB::table('users')->where('email', $request->email)->first();
 
-        //LLamada a BBDD y traemos datos empresa
-        $consultaEmpresa = DB::table('empresas')->where('email', $request->email)->get();
+        }else {
+            //LLamada a BBDD y traemos datos empresa
+            $clientes = DB::table('empresas')->where('email', $request->email)->first();
 
+        }
 
         //Comprobamos si array estrá vacío. Si lo está, no ha encontrado datos en BBDD que coincidan.
-        if (sizeof($consulta) == "") {
+        //if (sizeof($consulta) == "") {
+        if (!$clientes) {
             return response()->json(["data" => [
                 "error" => "Error en Login. Revise sus datos.",
                 "status" => 400,
@@ -85,14 +89,14 @@ class AuthController extends Controller
         }
 
         if ($request->tipo === 'usuario') {
-            $cliente = User::find($consulta[0]->id);
-        } else {
-            $cliente = Empresa::find($consultaEmpresa[0]->id);
+            $cliente = User::find($clientes->id);   } else {
+           $cliente = Empresa::find($clientes->id);
         }
 
         if (!$cliente) {
-            return response()->json(["data" => [
-                "error" => 'Error. Compruebe acceso como "usuario" o como "empresa".',
+        return response()->json(["data" => [
+
+                 "error" => 'Error. Compruebe acceso como "usuario" o como "empresa".',
                 "status" => 400,
             ]]);
         }
@@ -104,7 +108,7 @@ class AuthController extends Controller
         }
 
         return response()->json(["data" => [
-            'user' => $consulta,
+            'user' => $cliente,
             'remember_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(

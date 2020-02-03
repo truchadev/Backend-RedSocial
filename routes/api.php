@@ -49,7 +49,7 @@ Route::get('contratos', 'ContratoController@show');
 Route::get('jornadas', 'JLaboralController@show');
 Route::get('estados', 'EstadoController@show');
 Route::get('ofertas', 'OfertaController@mostrar');
-Route::post('empresa/estado/update', 'OfertaUserController@update');
+
 //AUTH
 Route::group(['prefix' => 'auth'], function () {//todas las rutas así en postman http://127.0.0.1:8000/api/auth/login
     Route::post('login', 'AuthController@login');
@@ -64,17 +64,12 @@ Route::group(['prefix' => 'auth'], function () {//todas las rutas así en postma
 });
 
 //PARA EL RESTO CON VALIDACIÓN TOKEN
-<<<<<<< HEAD
-Route::group(['middleware' => 'auth:api'], function () {//todas las rutas así en postman http://127.0.0.1:8000/api/empresa
-=======
 //Route::group(['middleware' => 'auth:api'], function (){//todas las rutas así en postman http://127.0.0.1:8000/api/empresa
->>>>>>> 58b83f30594a4ee68b17405f60dfc85633a819e7
     //USERS
-    //aquí las rutas de users...
-//    Route::post('empresa/estado/update/{$id}', 'OfertaUserController@update');
+        //aquí las rutas de users...
 
     //EMPRESAS
-    //aquí las rutas de empresas...
+        //aquí las rutas de empresas...
     Route::get('empresa/ofertas-empresa/{id}', 'EmpresaController@showOfertas');
     Route::get('empresa/ofertas-user/{id}', 'EmpresaController@showUsuarios');
     Route::patch('empresa/modificar-estado/{id}', 'EmpresaController@modificarEstado');
@@ -91,4 +86,6 @@ Route::fallback(function () {
     return response()->json(['message' => 'OOOOPS! Algo no fué bien. La ruta no existe.'], 404);
 })->name('api.fallback.404');
 
+//RUTAS OFERTAS
+Route::get('ofertas/populares', 'OfertaController@showOfertasPopularidad');
 

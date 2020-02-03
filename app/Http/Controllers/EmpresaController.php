@@ -46,6 +46,7 @@ class EmpresaController extends Controller
     public function nuevaOferta(Request $request)
     {
 
+        return $request->user();
         DB::table('ofertas')->insert([
             'puesto' => $request->input('puesto'),
             'ciudad_id' => $request->input('ciudad_id'),
