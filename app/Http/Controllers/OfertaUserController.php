@@ -51,7 +51,7 @@ class OfertaUserController extends Controller
         };
 
         //Route
-        Route::get('user/ofertas/create/{id}', 'OfertaUserController@create');
+      //  Route::get('user/ofertas/create/{id}', 'OfertaUserController@create');
     }
 
 
@@ -105,6 +105,6 @@ class OfertaUserController extends Controller
         }
 
         //Route
-        Route::post('empresa/estado/update/{id}', 'OfertaUserController@update');
+       // Route::post('empresa/estado/update/{id}', 'OfertaUserController@update');
     }
 }

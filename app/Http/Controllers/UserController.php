@@ -99,7 +99,7 @@ class UserController extends Controller
             "state" => 200]
         ], 200);
         //route
-        Route::post('user/update', 'UserController@update');
+       // Route::post('user/update', 'UserController@update');
     }
 
 

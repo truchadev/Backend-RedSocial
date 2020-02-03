@@ -67,6 +67,16 @@ Route::group(['prefix' => 'auth'], function () {//todas las rutas así en postma
 Route::group(['middleware' => 'auth:api'], function (){//todas las rutas así en postman http://127.0.0.1:8000/api/empresa
     //USERS
         //aquí las rutas de users...
+    Route::post('user/update', 'UserController@update');
+    Route::post('user/experiencia/create', 'ExperienciaUserController@create');
+    Route::post('user/experiencia/update/{id}', 'ExperienciaUserController@update');
+    Route::post('user/experiencia/destroy/{id}', 'ExperienciaUserController@destroy');
+    Route::get('user/experiencia/show', 'ExperienciaUserController@show');
+    Route::delete('user/estudios/destroy/{id}', 'EstudioUserController@destroy');
+    Route::get('user/estudios/show', 'EstudioUserController@show');
+    Route::post('user/estudios/update/{id}', 'EstudioUserController@update');
+    Route::post('user/estudios/create', 'EstudioUserController@create');
+
 
     //EMPRESAS
         //aquí las rutas de empresas...
@@ -77,6 +87,8 @@ Route::group(['middleware' => 'auth:api'], function (){//todas las rutas así en
     Route::delete('empresa/oferta-delete/{id}', 'EmpresaController@deleteOferta');
     Route::delete('empresa/delete/{id}', 'EmpresaController@deleteEmpresa');
     Route::patch('empresa/editar/{id}', 'EmpresaController@editar');
+    Route::post('empresa/estado/update/{id}', 'OfertaUserController@update');
+    Route::get('user/ofertas/create/{id}', 'OfertaUserController@create');
 });
 //fin nuevas rutas
 
