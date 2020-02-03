@@ -64,7 +64,7 @@ Route::group(['prefix' => 'auth'], function () {//todas las rutas así en postma
 });
 
 //PARA EL RESTO CON VALIDACIÓN TOKEN
-//Route::group(['middleware' => 'auth:api'], function (){//todas las rutas así en postman http://127.0.0.1:8000/api/empresa
+Route::group(['middleware' => 'auth:api'], function (){//todas las rutas así en postman http://127.0.0.1:8000/api/empresa
     //USERS
         //aquí las rutas de users...
 
@@ -77,7 +77,7 @@ Route::group(['prefix' => 'auth'], function () {//todas las rutas así en postma
     Route::delete('empresa/oferta-delete/{id}', 'EmpresaController@deleteOferta');
     Route::delete('empresa/delete/{id}', 'EmpresaController@deleteEmpresa');
     Route::patch('empresa/editar/{id}', 'EmpresaController@editar');
-//});
+});
 //fin nuevas rutas
 
 
@@ -88,4 +88,9 @@ Route::fallback(function () {
 
 //RUTAS OFERTAS
 Route::get('ofertas/populares', 'OfertaController@showOfertasPopularidad');
+Route::get('ofertas/provincia/{id}', 'OfertaController@provincia');
+Route::get('ofertas/contrato/{id}', 'OfertaController@contrato');
+Route::get('ofertas/j-laboral/{id}', 'OfertaController@j_laboral');
+Route::get('ofertas/salario', 'OfertaController@salario');
+Route::get('ofertas/experiencia', 'OfertaController@experiencia');
 

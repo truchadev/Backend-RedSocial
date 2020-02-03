@@ -136,6 +136,15 @@ class OfertaController extends Controller
         return $ofertas;
     }
 
+    public function provincia($id){
+
+        $ofertasProvincia = DB::table('ofertas')
+            ->join('ciudads', 'ciudads.id', '=', 'ofertas.ciudad_id')
+            ->where('ciudad_id', '=', $id)
+            ->get();
+        return $ofertasProvincia;
+    }
+
 
 
 

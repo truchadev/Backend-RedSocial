@@ -12,6 +12,9 @@ class CiudadController extends Controller
 
         $ciudades = DB::table('ciudads')->get();
         return $ciudades;
+    }
+
+    public function mostrarId(){
 
     }
 }
