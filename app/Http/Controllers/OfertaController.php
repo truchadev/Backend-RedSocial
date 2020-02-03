@@ -133,6 +133,7 @@ class OfertaController extends Controller
     public function mostrar(){
 
         $ofertas = DB::table('ofertas')->get();
+
         return $ofertas;
     }
 
@@ -142,7 +143,78 @@ class OfertaController extends Controller
             ->join('ciudads', 'ciudads.id', '=', 'ofertas.ciudad_id')
             ->where('ciudad_id', '=', $id)
             ->get();
+
         return $ofertasProvincia;
+    }
+
+    public function contrato($id){
+
+        $ofertasContrato = DB::table('ofertas')
+            ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
+            ->where('tipo_contrato_id', '=', $id)
+            ->get();
+
+        return $ofertasContrato;
+    }
+
+    public function j_laboral($id){
+
+        $ofertasJornada = DB::table('ofertas')
+            ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
+            ->where('tipo_jornada_id', '=', $id)
+            ->get();
+
+        return $ofertasJornada;
+    }
+
+    public function salario(Request $request, $id)
+    {
+        try{
+            $ofertasSalario = DB::table('ofertas')
+            ->where('salario_min', '<=', $id)
+            ->where('salario_max', '>=', $id)
+            ->orderBy('salario_min', 'desc')
+            ->get();
+
+
+         return $ofertasSalario;
+
+        }catch (\Illuminate\Database\QueryException  $e) {
+
+            return response()->json(["data" => [
+                "error" => "Error. Comprueba tus parámetros de consulta.",
+                "state" => 400]
+            ], 400);
+
+        }
+    }
+
+    public function experiencia($id){
+
+        if(is_numeric($id)){
+            $ofertasExp = DB::table('ofertas')
+                ->where('experiencia_min', '<=', $id)
+                ->orderBy('experiencia_min', 'desc')
+                ->get();
+
+            return $ofertasExp;
+
+        }else {
+            return response()->json(["data" => [
+                "error" => "Error. Comprueba tus parámetros de consulta.",
+                "state" => 400]
+            ], 400);
+        }
+    }
+
+    public function estudios($id){
+
+        $ofertasEstu = DB::table('ofertas')
+            ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
+            ->where('estudios_min_id', '=', $id)
+            ->get();
+
+            return $ofertasEstu;
     }
 
 

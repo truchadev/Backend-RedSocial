@@ -87,10 +87,12 @@ Route::fallback(function () {
 })->name('api.fallback.404');
 
 //RUTAS OFERTAS
-Route::get('ofertas/populares', 'OfertaController@showOfertasPopularidad');
+//Route::get('ofertas/populares', 'OfertaController@showOfertasPopularidad');
 Route::get('ofertas/provincia/{id}', 'OfertaController@provincia');
 Route::get('ofertas/contrato/{id}', 'OfertaController@contrato');
 Route::get('ofertas/j-laboral/{id}', 'OfertaController@j_laboral');
-Route::get('ofertas/salario', 'OfertaController@salario');
-Route::get('ofertas/experiencia', 'OfertaController@experiencia');
+Route::get('ofertas/salario/{id}', 'OfertaController@salario');
+Route::get('ofertas/experiencia/{id}', 'OfertaController@experiencia');
+Route::get('ofertas/estudios/{id}', 'OfertaController@estudios');
+
 
