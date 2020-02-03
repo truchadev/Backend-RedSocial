@@ -42,14 +42,14 @@ class AuthController extends Controller
                 'email' => 'required|email|unique:empresas',
                 'password' => 'required|min:6',
                 'ciudad_id' => 'min:1',
-               // 'name_responsable'=>'max:255|alpha'
+                // 'name_responsable'=>'max:255|alpha'
             ]);
             $empresas = new Empresa([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
                 'ciudad_id' => $request->ciudad_id,
-                'name_responsable'=> $request->name_responsable
+                'name_responsable' => $request->name_responsable
             ]);
             $empresas->save();
             //notificacion por email de datos
@@ -63,17 +63,26 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|unique:empresas',
-            'password' => 'required|min:6',
-            'remember_me' => 'boolean',
-        ]);
 
-        if($request->tipo === 'usuario'){
+        if ($request->tipo === 'usuario') {
+
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|min:6',
+                'remember_me' => 'boolean',
+            ]);
+
             //LLamada a BBDD y traemos datos cliente
             $clientes = DB::table('users')->where('email', $request->email)->first();
 
-        }else {
+        } else {
+
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|min:6',
+                'remember_me' => 'boolean',
+            ]);
+
             //LLamada a BBDD y traemos datos empresa
             $clientes = DB::table('empresas')->where('email', $request->email)->first();
 
@@ -89,14 +98,15 @@ class AuthController extends Controller
         }
 
         if ($request->tipo === 'usuario') {
-            $cliente = User::find($clientes->id);   } else {
-           $cliente = Empresa::find($clientes->id);
+            $cliente = User::find($clientes->id);
+        } else {
+            $cliente = Empresa::find($clientes->id);
         }
 
         if (!$cliente) {
-        return response()->json(["data" => [
+            return response()->json(["data" => [
 
-                 "error" => 'Error. Compruebe acceso como "usuario" o como "empresa".',
+                "error" => 'Error. Compruebe acceso como "usuario" o como "empresa".',
                 "status" => 400,
             ]]);
         }
@@ -120,9 +130,9 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
 
-            $request->user()->token()->revoke();
-            return response()->json(['message' =>
-                'Successfully logged out']);
+        $request->user()->token()->revoke();
+        return response()->json(['message' =>
+            'Successfully logged out']);
     }
 
     public function user(Request $request)
