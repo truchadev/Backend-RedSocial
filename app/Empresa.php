@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Empresa extends Authenticatable
 {
     use HasApiTokens, Notifiable;
-
+    //protected $guard = 'empresas';
     //add fo activation and notifications
     protected $dates = ['deleted_at'];
 

@@ -67,7 +67,7 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        return $request->user();
+       // return $request->user();
         $validator = $this->validate($request, [
             'name' => 'alpha|max:255',
             'prim_apellido' => 'alpha|max:255',

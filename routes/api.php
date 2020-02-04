@@ -63,10 +63,10 @@ Route::group(['prefix' => 'auth'], function () {//todas las rutas así en postma
     });
 });
 
-//PARA EL RESTO CON VALIDACIÓN TOKEN
-Route::group(['middleware' => 'auth:api'], function (){//todas las rutas así en postman http://127.0.0.1:8000/api/empresa
+//PARA USERS
+Route::group(['middleware' => 'auth:api'], function () {//todas las rutas así en postman http://127.0.0.1:8000/api/user
     //USERS
-        //aquí las rutas de users...
+    //aquí las rutas de users...
     Route::post('user/update', 'UserController@update');
     Route::post('user/experiencia/create', 'ExperienciaUserController@create');
     Route::post('user/experiencia/update/{id}', 'ExperienciaUserController@update');
@@ -76,22 +76,26 @@ Route::group(['middleware' => 'auth:api'], function (){//todas las rutas así en
     Route::get('user/estudios/show', 'EstudioUserController@show');
     Route::post('user/estudios/update/{id}', 'EstudioUserController@update');
     Route::post('user/estudios/create', 'EstudioUserController@create');
+    Route::get('user/ofertas/create/{id}', 'OfertaUserController@create');
 
+});
+
+//PARA EMPRESAS
+Route::group(['middleware' => 'auth:empresas'], function (){//todas las rutas así en postman http://127.0.0.1:8000/api/empresa
 
     //EMPRESAS
         //aquí las rutas de empresas...
-    Route::get('empresa/ofertas-empresa/{id}', 'EmpresaController@showOfertas');
-    Route::get('empresa/ofertas-user/{id}', 'EmpresaController@showUsuarios');
-    Route::patch('empresa/modificar-estado/{id}', 'EmpresaController@modificarEstado');
-    Route::post('empresa/oferta', 'EmpresaController@nuevaOferta');
+    Route::get('empresa/ofertas', 'EmpresaController@showOfertas');
+    Route::get('empresa/users-ofertas/{id}', 'EmpresaController@showUsuarios');
+    Route::post('empresa/new-oferta', 'EmpresaController@nuevaOferta');
     Route::delete('empresa/oferta-delete/{id}', 'EmpresaController@deleteOferta');
-    Route::delete('empresa/delete/{id}', 'EmpresaController@deleteEmpresa');
-    Route::patch('empresa/editar/{id}', 'EmpresaController@editar');
+    //Route::delete('empresa/delete/{id}', 'EmpresaController@deleteEmpresa');
+    Route::post('empresa/editar', 'EmpresaController@editar');
     Route::post('empresa/estado/update/{id}', 'OfertaUserController@update');
-    Route::get('user/ofertas/create/{id}', 'OfertaUserController@create');
 });
 //fin nuevas rutas
-
+;
+//Route::post('empresa/editar', 'EmpresaController@editar');
 
 // CUALQUIER RUTA NO EXISTENTE RECIBIRÁ NOT FOUND
 Route::fallback(function () {

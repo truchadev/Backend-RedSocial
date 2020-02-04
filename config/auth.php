@@ -38,27 +38,17 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'users'
         ],
-
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
 //            'hash' => false,
         ],
-//        'empresas' => [
-//            'driver' => 'passport',
-//            'provider' => 'empresas',
-//        ],
-//        'users' => [
-//            'driver' => 'passport',
-//            'provider' => 'users',
-//        ],
-//        'passwords' => [
-//            'driver' => 'passport',
-//            'provider' => 'users',
-//        ],
-
+        'empresas' => [
+            'driver' => 'passport',
+            'provider' => 'empresas',
+        ]
     ],
 
     /*
