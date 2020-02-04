@@ -11,10 +11,22 @@ class CiudadController extends Controller
     public function show(){
 
         $ciudades = DB::table('ciudads')->get();
-        return $ciudades;
+
+        if(!$ciudades){
+
+            return response()->json(["data" => [
+                "error" => "Error. La oferta no se ha eliminado correctamente",
+                "state" => 400]
+            ], 400);
+
+        }else {
+            return response()->json(["data" => [
+                "message" => "Oferta creada correctamente.",
+                "data" => $ciudades,
+                "state" => 200]
+            ], 200);
+        }
+
     }
 
-    public function mostrarId(){
-
-    }
 }

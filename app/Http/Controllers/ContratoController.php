@@ -10,6 +10,20 @@ class ContratoController extends Controller
     public function show(){
 
         $contratos = DB::table('contratos')->get();
-        return $contratos;
+
+        if(!$contratos){
+
+            return response()->json(["data" => [
+                "error" => "Error. La oferta no se ha eliminado correctamente",
+                "state" => 400]
+            ], 400);
+
+        }else {
+            return response()->json(["data" => [
+                "message" => "Oferta creada correctamente.",
+                "data" => $contratos,
+                "state" => 200]
+            ], 200);
+        }
     }
 }

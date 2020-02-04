@@ -134,7 +134,20 @@ class OfertaController extends Controller
 
         $ofertas = DB::table('ofertas')->get();
 
-        return $ofertas;
+        if(!$ofertas){
+
+            return response()->json(["data" => [
+                "error" => "Error. La oferta no se ha eliminado correctamente",
+                "state" => 400]
+            ], 400);
+
+        }else {
+            return response()->json(["data" => [
+                "message" => "Oferta creada correctamente.",
+                "data" => $ofertas,
+                "state" => 200]
+            ], 200);
+        }
     }
 
     public function provincia($id){
@@ -144,7 +157,20 @@ class OfertaController extends Controller
             ->where('ciudad_id', '=', $id)
             ->get();
 
-        return $ofertasProvincia;
+        if(!$ofertasProvincia){
+
+            return response()->json(["data" => [
+                "error" => "Error. La oferta no se ha eliminado correctamente",
+                "state" => 400]
+            ], 400);
+
+        }else {
+            return response()->json(["data" => [
+                "message" => "Oferta creada correctamente.",
+                "data" => $ofertasProvincia,
+                "state" => 200]
+            ], 200);
+        }
     }
 
     public function contrato($id){
@@ -154,7 +180,20 @@ class OfertaController extends Controller
             ->where('tipo_contrato_id', '=', $id)
             ->get();
 
-        return $ofertasContrato;
+        if(!$ofertasContrato){
+
+            return response()->json(["data" => [
+                "error" => "Error. La oferta no se ha eliminado correctamente",
+                "state" => 400]
+            ], 400);
+
+        }else {
+            return response()->json(["data" => [
+                "message" => "Oferta creada correctamente.",
+                "data" => $ofertasContrato,
+                "state" => 200]
+            ], 200);
+        }
     }
 
     public function j_laboral($id){
@@ -164,7 +203,20 @@ class OfertaController extends Controller
             ->where('tipo_jornada_id', '=', $id)
             ->get();
 
-        return $ofertasJornada;
+        if(!$ofertasJornada){
+
+            return response()->json(["data" => [
+                "error" => "Error. La oferta no se ha eliminado correctamente",
+                "state" => 400]
+            ], 400);
+
+        }else {
+            return response()->json(["data" => [
+                "message" => "Oferta creada correctamente.",
+                "data" => $ofertasJornada,
+                "state" => 200]
+            ], 200);
+        }
     }
 
     public function salario(Request $request, $id)
@@ -177,7 +229,11 @@ class OfertaController extends Controller
             ->get();
 
 
-         return $ofertasSalario;
+            return response()->json(["data" => [
+                "message" => "Oferta creada correctamente.",
+                "data" => $ofertasSalario,
+                "state" => 200]
+            ], 200);
 
         }catch (\Illuminate\Database\QueryException  $e) {
 
@@ -197,7 +253,11 @@ class OfertaController extends Controller
                 ->orderBy('experiencia_min', 'desc')
                 ->get();
 
-            return $ofertasExp;
+            return response()->json(["data" => [
+                "message" => "Oferta creada correctamente.",
+                "data" => $ofertasExp,
+                "state" => 200]
+            ], 200);
 
         }else {
             return response()->json(["data" => [
@@ -214,7 +274,21 @@ class OfertaController extends Controller
             ->where('estudios_min_id', '=', $id)
             ->get();
 
-            return $ofertasEstu;
+
+        if(!$ofertasEstu){
+
+            return response()->json(["data" => [
+                "error" => "Error. La oferta no se ha eliminado correctamente",
+                "state" => 400]
+            ], 400);
+
+        }else {
+            return response()->json(["data" => [
+                "message" => "Oferta creada correctamente.",
+                "data" => $ofertasEstu,
+                "state" => 200]
+            ], 200);
+        }
     }
 
 

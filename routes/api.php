@@ -89,7 +89,7 @@ Route::group(['middleware' => 'auth:empresas'], function (){//todas las rutas as
     Route::get('empresa/users-ofertas/{id}', 'EmpresaController@showUsuarios');
     Route::post('empresa/new-oferta', 'EmpresaController@nuevaOferta');
     Route::delete('empresa/oferta-delete/{id}', 'EmpresaController@deleteOferta');
-    //Route::delete('empresa/delete/{id}', 'EmpresaController@deleteEmpresa');
+    Route::delete('empresa/delete/{id}', 'EmpresaController@deleteEmpresa');
     Route::post('empresa/editar', 'EmpresaController@editar');
     Route::post('empresa/estado/update/{id}', 'OfertaUserController@update');
 });

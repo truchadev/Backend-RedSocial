@@ -30,6 +30,7 @@ class EmpresaController extends Controller
         }else {
             return response()->json(["data" => [
                 "message" => "Petición aceptada.",
+                "data" => $ofertasEmpresa,
                 "state" => 200]
             ], 200);
         }
@@ -53,6 +54,7 @@ class EmpresaController extends Controller
         }else {
             return response()->json(["data" => [
                 "message" => "Petición aceptada.",
+                "data" => $usuariosOfertas,
                 "state" => 200]
             ], 200);
         }
@@ -90,6 +92,7 @@ class EmpresaController extends Controller
             }else {
                 return response()->json(["data" => [
                     "message" => "Oferta creada correctamente.",
+                    "data" => $newOferta,
                     "state" => 200]
                 ], 200);
             }
@@ -130,26 +133,45 @@ class EmpresaController extends Controller
     }
 
     //Borrar empresa
-    public function deleteEmpresa(Request $request, $param){
+    public function deleteEmpresa(Request $request, $param)
+    {
 
-       $userOferta = DB::table('oferta__users')
-           ->join('ofertas', 'ofertas.id', '=',  'oferta__users.oferta_id')
-          // ->where('oferta__users.oferta_id', '=', 'oferta.id')
-           ->where('ofertas.empresa_id', '=', $request->user()->id)
-           ->delete();
+        $userOferta = DB::table('oferta__users')
+            ->join('ofertas', 'ofertas.id', '=', 'oferta__users.oferta_id')
+            // ->where('oferta__users.oferta_id', '=', 'oferta.id')
+            ->where('ofertas.empresa_id', '=', $param)
+            ->where('ofertas.empresa_id', '=', $request->user()->id)
+            ->delete();
 
-       $oferta = DB::table('ofertas')
-           ->where('ofertas.empresa_id', '=', $request->user()->id)
-           ->delete();
+        $oferta = DB::table('ofertas')
+            ->where('ofertas.empresa_id', '=', $param)
+            ->delete();
+
+        $empresa = DB::table('empresas')
+            ->where('id', '=', $param)
+            ->delete();
+
+
+
+        if ($userOferta && $oferta && $empresa){
+
+            return response()->json(["data" => [
+                "message" => "Empresa eliminada correctamente.",
+                "state" => 200]
+            ], 200);
+
+        }else {
+
+            return response()->json(["data" => [
+                "error" => "Error. La empresa no se ha eliminado correctamente",
+                "state" => 400]
+            ], 400);
+        }
+    }
 
 
 
 
-        DB::table('empresas')
-           ->join('oferta__users','oferta__users.id','=','ofertas.id')
-           ->where('id','=', $param)
-           ->delete();
-      }
 
 
     //Editar Perfil
@@ -183,6 +205,7 @@ class EmpresaController extends Controller
         }
         return response()->json(["data" => [
             "message" => "Cambios realizados correctamente.",
+            "data" => $user,
             "state" => 200]
         ], 200);
 
