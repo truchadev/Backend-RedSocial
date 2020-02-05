@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Notifications\SignupActivate;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Empresa;
 use Illuminate\Support\Facades\Auth;
@@ -63,68 +64,89 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        try {
+            if ($request->tipo === 'usuario') {
 
-        if ($request->tipo === 'usuario') {
+                $request->validate([
+                    'email' => 'required|email',
+                    'password' => 'required|min:6',
+                    'remember_me' => 'boolean',
+                ]);
 
-            $request->validate([
-                'email' => 'required|email',
-                'password' => 'required|min:6',
-                'remember_me' => 'boolean',
+                //LLamada a BBDD y traemos datos cliente
+                $clientes = DB::table('users')->where('email', $request->email)->first();
+
+                if (!Hash::check($request->password, $clientes->password) || $clientes->email != $request->email) {
+                    return response()->json(["data" => [
+                        "error" => "Error en Login. Revise sus datos.",
+                        "status" => 400,
+                    ]]);
+                }
+
+            } else {
+
+                $request->validate([
+                    'email' => 'required|email',
+                    'password' => 'required|min:6',
+                    'remember_me' => 'boolean',
+                ]);
+
+                //LLamada a BBDD y traemos datos empresa
+                $clientes = DB::table('empresas')->where('email', $request->email)->first();
+
+                if (Hash::check($request->password, $clientes->password) || $clientes->email != $request->email) {
+                    return response()->json(["data" => [
+                        "error" => "Error en Login. Revise sus datos.",
+                        "status" => 400,
+                    ]]);
+                }
+            }
+
+            //Comprobamos si array estrá vacío. Si lo está, no ha encontrado datos en BBDD que coincidan.
+            //if (sizeof($consulta) == "") {
+            if (!$clientes) {
+                return response()->json(["data" => [
+                    "error" => "Error en Login. Revise sus datos.",
+                    "status" => 400,
+                ]]);
+            }
+
+            if ($request->tipo === 'usuario') {
+                $cliente = User::find($clientes->id);
+            } else {
+                $cliente = Empresa::find($clientes->id);
+            }
+
+            if (!$cliente) {
+                return response()->json(["data" => [
+
+                    "error" => 'Error. Compruebe acceso como "usuario" o como "empresa".',
+                    "status" => 400,
+                ]]);
+            }
+
+
+            $tokenResult = $cliente->createToken('Personal Access Token');
+            $token = $tokenResult->token;
+
+            if ($request->remember_me) {
+                $token->expires_at = Carbon::now()->addWeeks(4);
+            }
+
+            return response()->json(["data" => [
+                'obj' => $cliente,
+                'remember_token' => $tokenResult->accessToken,
+                'token_type' => 'Bearer',
+                'expires_at' => Carbon::parse(
+                    $tokenResult->token->expires_at)
+                    ->toDateTimeString(),]
             ]);
-
-            //LLamada a BBDD y traemos datos cliente
-            $clientes = DB::table('users')->where('email', $request->email)->first();
-
-        } else {
-
-            $request->validate([
-                'email' => 'required|email',
-                'password' => 'required|min:6',
-                'remember_me' => 'boolean',
-            ]);
-
-            //LLamada a BBDD y traemos datos empresa
-            $clientes = DB::table('empresas')->where('email', $request->email)->first();
-
-        }
-
-        //Comprobamos si array estrá vacío. Si lo está, no ha encontrado datos en BBDD que coincidan.
-        //if (sizeof($consulta) == "") {
-        if (!$clientes) {
+        } catch (\Exception $e) {
             return response()->json(["data" => [
                 "error" => "Error en Login. Revise sus datos.",
                 "status" => 400,
             ]]);
         }
-
-        if ($request->tipo === 'usuario') {
-            $cliente = User::find($clientes->id);
-        } else {
-            $cliente = Empresa::find($clientes->id);
-        }
-
-        if (!$cliente) {
-            return response()->json(["data" => [
-
-                "error" => 'Error. Compruebe acceso como "usuario" o como "empresa".',
-                "status" => 400,
-            ]]);
-        }
-        $tokenResult = $cliente->createToken('Personal Access Token');
-        $token = $tokenResult->token;
-
-        if ($request->remember_me) {
-            $token->expires_at = Carbon::now()->addWeeks(4);
-        }
-
-        return response()->json(["data" => [
-            'user' => $cliente,
-            'remember_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse(
-                $tokenResult->token->expires_at)
-                ->toDateTimeString(),]
-        ]);
     }
 
     public function logout(Request $request)
