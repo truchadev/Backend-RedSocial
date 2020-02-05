@@ -137,15 +137,15 @@ class OfertaController extends Controller
         if(!$ofertas){
 
             return response()->json(["data" => [
-                "error" => "Error. La oferta no se ha eliminado correctamente",
+                "error" => "Error. La oferta no se ha mostrado correctamente",
                 "state" => 400]
             ], 400);
 
         }else {
-            return response()->json(["data" => [
-                "message" => "Oferta creada correctamente.",
-                "data" => $ofertas,
-                "state" => 200]
+            return response()->json([
+                "message" => "Petición correctamente.",
+                "obj" => $ofertas,
+                "state" => 200
             ], 200);
         }
     }

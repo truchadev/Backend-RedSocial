@@ -20,10 +20,10 @@ class CiudadController extends Controller
             ], 400);
 
         }else {
-            return response()->json(["data" => [
+            return response()->json( [
                 "message" => "Oferta creada correctamente.",
-                "data" => $ciudades,
-                "state" => 200]
+                "obj" => $ciudades,
+                "state" => 200
             ], 200);
         }
 
