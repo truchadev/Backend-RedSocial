@@ -94,7 +94,7 @@ class AuthController extends Controller
                 //LLamada a BBDD y traemos datos empresa
                 $clientes = DB::table('empresas')->where('email', $request->email)->first();
 
-                if (Hash::check($request->password, $clientes->password) || $clientes->email != $request->email) {
+                if (!Hash::check($request->password, $clientes->password) || $clientes->email != $request->email) {
                     return response()->json([
                         "error" => "Error en Login. Revise sus datos.",
                         "status" => 400,
