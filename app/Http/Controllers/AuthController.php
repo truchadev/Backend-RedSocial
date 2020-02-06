@@ -33,9 +33,9 @@ class AuthController extends Controller
             $user->save();
             //notificacion por email de datos
 //            $user->notify(new SignupActivate($user));
-            return response()->json(["data" => [
+            return response()->json([
                 "message" => "Usuario registrado correctamente",
-                "state" => 200]
+                "state" => 200
             ], 200);
         } else {
             $request->validate([
@@ -55,9 +55,9 @@ class AuthController extends Controller
             $empresas->save();
             //notificacion por email de datos
 //            $empresas->notify(new SignupActivate($empresas));
-            return response()->json(["data" => [
+            return response()->json([
                 "message" => "Empresa registrada",
-                "state" => 200]
+                "state" => 200
             ], 200);
         }
     }
@@ -77,10 +77,10 @@ class AuthController extends Controller
                 $clientes = DB::table('users')->where('email', $request->email)->first();
 
                 if (!Hash::check($request->password, $clientes->password) || $clientes->email != $request->email) {
-                    return response()->json(["data" => [
+                    return response()->json([
                         "error" => "Error en Login. Revise sus datos.",
                         "status" => 400,
-                    ]]);
+                    ]);
                 }
 
             } else {
@@ -95,20 +95,20 @@ class AuthController extends Controller
                 $clientes = DB::table('empresas')->where('email', $request->email)->first();
 
                 if (Hash::check($request->password, $clientes->password) || $clientes->email != $request->email) {
-                    return response()->json(["data" => [
+                    return response()->json([
                         "error" => "Error en Login. Revise sus datos.",
                         "status" => 400,
-                    ]]);
+                    ]);
                 }
             }
 
             //Comprobamos si array estrá vacío. Si lo está, no ha encontrado datos en BBDD que coincidan.
             //if (sizeof($consulta) == "") {
             if (!$clientes) {
-                return response()->json(["data" => [
+                return response()->json([
                     "error" => "Error en Login. Revise sus datos.",
-                    "status" => 400,
-                ]]);
+                    "status" => 400
+                ]);
             }
 
             if ($request->tipo === 'usuario') {
@@ -118,11 +118,10 @@ class AuthController extends Controller
             }
 
             if (!$cliente) {
-                return response()->json(["data" => [
-
+                return response()->json([
                     "error" => 'Error. Compruebe acceso como "usuario" o como "empresa".',
                     "status" => 400,
-                ]]);
+                ]);
             }
 
 
@@ -133,19 +132,20 @@ class AuthController extends Controller
                 $token->expires_at = Carbon::now()->addWeeks(4);
             }
 
-            return response()->json(["data" => [
-                'obj' => $cliente,
+            return response()->json([
+                'state' => 200,
+                'obj' => $clientes,
                 'remember_token' => $tokenResult->accessToken,
                 'token_type' => 'Bearer',
                 'expires_at' => Carbon::parse(
                     $tokenResult->token->expires_at)
-                    ->toDateTimeString(),]
+                    ->toDateTimeString()
             ]);
         } catch (\Exception $e) {
-            return response()->json(["data" => [
+            return response()->json([
                 "error" => "Error en Login. Revise sus datos.",
                 "status" => 400,
-            ]]);
+            ]);
         }
     }
 
