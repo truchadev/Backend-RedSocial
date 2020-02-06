@@ -50,6 +50,9 @@ Route::get('jornadas', 'JLaboralController@show');
 Route::get('estados', 'EstadoController@show');
 Route::get('ofertas', 'OfertaController@mostrar');
 
+//busquedas
+Route::get('ofertas/{id}', 'OfertaController@mostrarId');//mostrar ofertas de empresas por id de empresa
+
 //AUTH
 Route::group(['prefix' => 'auth'], function () {//todas las rutas así en postman http://127.0.0.1:8000/api/auth/login
     Route::post('login', 'AuthController@login');
