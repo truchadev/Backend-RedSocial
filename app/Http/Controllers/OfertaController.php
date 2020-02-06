@@ -130,18 +130,26 @@ class OfertaController extends Controller
 //        return redirect()->route('marcas.index');
     }
 
-    public function mostrar(){
+    public function mostrar()
+    {
 
-        $ofertas = DB::table('ofertas')->get();
+        $ofertas = DB::table('ofertas')
+            ->join('empresas', 'empresas.id', '=', 'ofertas.empresa_id')
+            ->join('ciudads', 'ciudads.id', '=', 'ofertas.ciudad_id')
+            ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
+            ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
+            ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
+            ->get();
 
-        if(!$ofertas){
+
+        if (!$ofertas) {
 
             return response()->json(["data" => [
                 "error" => "Error. La oferta no se ha mostrado correctamente",
                 "state" => 400]
             ], 400);
 
-        }else {
+        } else {
             return response()->json([
                 "message" => "Petición correctamente.",
                 "obj" => $ofertas,
@@ -150,21 +158,22 @@ class OfertaController extends Controller
         }
     }
 
-    public function provincia($id){
+    public function provincia($id)
+    {
 
         $ofertasProvincia = DB::table('ofertas')
             ->join('ciudads', 'ciudads.id', '=', 'ofertas.ciudad_id')
             ->where('ciudad_id', '=', $id)
             ->get();
 
-        if(!$ofertasProvincia){
+        if (!$ofertasProvincia) {
 
             return response()->json(["data" => [
                 "error" => "Error. La oferta no se ha eliminado correctamente",
                 "state" => 400]
             ], 400);
 
-        }else {
+        } else {
             return response()->json(["data" => [
                 "message" => "Oferta creada correctamente.",
                 "data" => $ofertasProvincia,
@@ -173,21 +182,22 @@ class OfertaController extends Controller
         }
     }
 
-    public function contrato($id){
+    public function contrato($id)
+    {
 
         $ofertasContrato = DB::table('ofertas')
             ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
             ->where('tipo_contrato_id', '=', $id)
             ->get();
 
-        if(!$ofertasContrato){
+        if (!$ofertasContrato) {
 
             return response()->json(["data" => [
                 "error" => "Error. La oferta no se ha eliminado correctamente",
                 "state" => 400]
             ], 400);
 
-        }else {
+        } else {
             return response()->json(["data" => [
                 "message" => "Oferta creada correctamente.",
                 "data" => $ofertasContrato,
@@ -196,21 +206,22 @@ class OfertaController extends Controller
         }
     }
 
-    public function j_laboral($id){
+    public function j_laboral($id)
+    {
 
         $ofertasJornada = DB::table('ofertas')
             ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
             ->where('tipo_jornada_id', '=', $id)
             ->get();
 
-        if(!$ofertasJornada){
+        if (!$ofertasJornada) {
 
             return response()->json(["data" => [
                 "error" => "Error. La oferta no se ha eliminado correctamente",
                 "state" => 400]
             ], 400);
 
-        }else {
+        } else {
             return response()->json(["data" => [
                 "message" => "Oferta creada correctamente.",
                 "data" => $ofertasJornada,
@@ -221,12 +232,12 @@ class OfertaController extends Controller
 
     public function salario(Request $request, $id)
     {
-        try{
+        try {
             $ofertasSalario = DB::table('ofertas')
-            ->where('salario_min', '<=', $id)
-            ->where('salario_max', '>=', $id)
-            ->orderBy('salario_min', 'desc')
-            ->get();
+                ->where('salario_min', '<=', $id)
+                ->where('salario_max', '>=', $id)
+                ->orderBy('salario_min', 'desc')
+                ->get();
 
 
             return response()->json(["data" => [
@@ -235,7 +246,7 @@ class OfertaController extends Controller
                 "state" => 200]
             ], 200);
 
-        }catch (\Illuminate\Database\QueryException  $e) {
+        } catch (\Illuminate\Database\QueryException  $e) {
 
             return response()->json(["data" => [
                 "error" => "Error. Comprueba tus parámetros de consulta.",
@@ -245,9 +256,10 @@ class OfertaController extends Controller
         }
     }
 
-    public function experiencia($id){
+    public function experiencia($id)
+    {
 
-        if(is_numeric($id)){
+        if (is_numeric($id)) {
             $ofertasExp = DB::table('ofertas')
                 ->where('experiencia_min', '<=', $id)
                 ->orderBy('experiencia_min', 'desc')
@@ -259,7 +271,7 @@ class OfertaController extends Controller
                 "state" => 200]
             ], 200);
 
-        }else {
+        } else {
             return response()->json(["data" => [
                 "error" => "Error. Comprueba tus parámetros de consulta.",
                 "state" => 400]
@@ -267,7 +279,8 @@ class OfertaController extends Controller
         }
     }
 
-    public function estudios($id){
+    public function estudios($id)
+    {
 
         $ofertasEstu = DB::table('ofertas')
             ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
@@ -275,14 +288,14 @@ class OfertaController extends Controller
             ->get();
 
 
-        if(!$ofertasEstu){
+        if (!$ofertasEstu) {
 
             return response()->json(["data" => [
                 "error" => "Error. La oferta no se ha eliminado correctamente",
                 "state" => 400]
             ], 400);
 
-        }else {
+        } else {
             return response()->json(["data" => [
                 "message" => "Oferta creada correctamente.",
                 "data" => $ofertasEstu,
@@ -290,8 +303,6 @@ class OfertaController extends Controller
             ], 200);
         }
     }
-
-
 
 
 }

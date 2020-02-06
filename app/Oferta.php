@@ -57,7 +57,7 @@ class Oferta extends Model
     }
 
     public function j_laborales(){
-        return $this->belongsTo('App\J_Laborals');
+        return $this->belongsTo('App\j_Laborals');
     }
 
     public function empresas(){

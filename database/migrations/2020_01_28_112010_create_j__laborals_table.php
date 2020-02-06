@@ -15,7 +15,7 @@ class CreateJLaboralsTable extends Migration
     {
         Schema::create('j__laborals', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('tipo', 50);
+            $table->string('tipo_jorn', 50);
             $table->timestamps();
         });
     }
