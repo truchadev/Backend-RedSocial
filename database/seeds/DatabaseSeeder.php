@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         //Recorrer el json
         foreach (json_decode($json) as $row) {
             DB::table('ciudads')->insert([
-                "name" => $row->name
+                "name_ciu" => $row->name
             ]);
         }
 
@@ -90,11 +90,15 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+
+
+
         Factory(User::class, 10)->create();
         Factory(Empresa::class, 10)->create();
         Factory(Oferta::class, 50)->create();
         Factory(Oferta_User::class, 50)->create();
         Factory(Experiencia_User::class, 75)->create();
         Factory(Estudio_User::class, 70)->create();
+        Factory(\App\Ofertas_Tecnologia::class, 200)->create();
     }
 }

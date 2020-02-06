@@ -138,6 +138,8 @@ class OfertaController extends Controller
             ->join('ciudads', 'ciudads.id', '=', 'ofertas.ciudad_id')
             ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
             ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
+            ->join('ofertas__tecnologias', 'ofertas__tecnologias.oferta_id','=','ofertas.id' )
+            ->join('tecnologias', 'tecnologias.id', '=', 'ofertas__tecnologias.tecnologia_id')
             ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
             ->get();
 
