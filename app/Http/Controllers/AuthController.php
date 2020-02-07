@@ -28,7 +28,9 @@ class AuthController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'ciudad_id' => $request->ciudad_id
+                'ciudad_id' => $request->ciudad_id,
+                'tecnologia_id' => $request->ciudad_id,
+                'estudios_id' => $request->ciudad_id
             ]);
             $user->save();
             //notificacion por email de datos
