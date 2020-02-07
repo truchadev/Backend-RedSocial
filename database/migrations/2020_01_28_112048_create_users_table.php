@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
             $table->foreign('tecnologia_id', 'fk_users_tecnologias')
                 ->on('tecnologias')
                 ->references('id')
-//                ->onDelete('restrict')->nullable();
+                ->onDelete('restrict')->nullable();
             $table->unsignedBigInteger('estudios_id');
             $table->foreign('estudios_id', 'fk_users_estudios')
                 ->on('estudios')
