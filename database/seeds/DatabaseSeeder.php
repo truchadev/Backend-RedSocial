@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
         Factory(Oferta::class, 50)->create();
         Factory(Oferta_User::class, 50)->create();
         Factory(Experiencia_User::class, 75)->create();
-        Factory(Estudio_User::class, 70)->create();
-        Factory(\App\Ofertas_Tecnologia::class, 200)->create();
+//        Factory(Estudio_User::class, 70)->create();
+//        Factory(\App\Ofertas_Tecnologia::class, 200)->create();
     }
 }

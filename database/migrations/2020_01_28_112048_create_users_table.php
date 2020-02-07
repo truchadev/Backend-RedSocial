@@ -28,17 +28,26 @@ class CreateUsersTable extends Migration
                 ->on('ciudads')
                 ->references('id')
                 ->onDelete('restrict')->nullable();
-
             $table->string('direccion', 100)->nullable();
             $table->binary('imagen')->nullable($value= true);
             $table->string('sexo', 50)->nullable();
-            $table->string('especialidad', 50)->nullable();
+            //nuevos
+            $table->unsignedBigInteger('tecnologia_id');
+            $table->foreign('tecnologia_id', 'fk_users_tecnologias')
+                ->on('tecnologias')
+                ->references('id')
+                ->onDelete('restrict')->nullable();
+            $table->unsignedBigInteger('estudios_id');
+            $table->foreign('estudios_id', 'fk_users_estudios')
+                ->on('estudios')
+                ->references('id')
+                ->onDelete('restrict')->nullable();
+
             $table->integer('telefono' )->nullable()->unsigned();
             $table->rememberToken();
             //add fo activation and notifications
             $table->boolean('active')->default(false);
             $table->string('activation_token')->nullable();
-
             $table->timestamps();
             //add fo activation and notifications
             $table->softDeletes()->nullable();

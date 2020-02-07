@@ -26,11 +26,11 @@ class CreateExperienciaUsersTable extends Migration
                 ->references('id')
                 ->onDelete('restrict');
 
-            $table->unsignedBigInteger('ciudad_id');
-            $table->foreign('ciudad_id', 'fk_experiencia__users_ciudads')
-                ->on('ciudads')
-                ->references('id')
-                ->onDelete('restrict');
+//            $table->unsignedBigInteger('ciudad_id');
+//            $table->foreign('ciudad_id', 'fk_experiencia__users_ciudads')
+//                ->on('ciudads')
+//                ->references('id')
+//                ->onDelete('restrict');
 
 
 

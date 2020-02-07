@@ -27,6 +27,8 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
         'about' => $faker -> paragraph($nbSentences = 3, $variableNbSentences = true),
         'ciudad_id' => \App\Ciudad::all()->random()->id,
+        'tecnologia_id'=>\App\Tecnologia::all()->random()->id,
+        'estudios_id'=>\App\Estudio::all()->random()->id,
         'direccion'=> $faker->address,
         'telefono' => 665543261
     ];
