@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Tecnologia extends Model
 {
     public function users(){
-        return $this->belongsToMany('App\Users');
+        return $this->hasMany('App\User');
     }
 
     public function ofertas(){
-        return $this->belongsToMany('App\Ofertas', 'ofertas__tecnologias');
+        return $this->hasMany('App\Oferta');
     }
 
 }

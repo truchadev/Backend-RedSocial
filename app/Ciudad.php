@@ -9,7 +9,7 @@ class Ciudad extends Model
 {
 
     public function users(){
-        return $this->hasMany('App\Users');
+        return $this->hasMany('App\User');
     }
 
     public function empresas(){
@@ -17,14 +17,14 @@ class Ciudad extends Model
     }
 
     public function ofertas(){
-        return $this->hasMany('App\Empresa');
+        return $this->hasMany('App\Oferta');
     }
 
     public function estudios_users(){
-        return $this->hasMany('App\Empresa');
+        return $this->hasMany('App\Estudio_User');
     }
 
     public function experiencias_users(){
-        return $this->hasMany('App\Empresa');
+        return $this->hasMany('App\Experiencia_User');
     }
 }

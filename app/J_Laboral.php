@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class J_Laboral extends Model
 {
     public function oferta(){
-        return $this->hasMany('App\Ofertas');
+        return $this->hasMany('App\Oferta');
     }
 }

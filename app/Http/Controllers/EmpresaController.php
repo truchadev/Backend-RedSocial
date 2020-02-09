@@ -76,8 +76,13 @@ class EmpresaController extends Controller
         $usuariosOfertas = DB::table('oferta__users')
             ->join('users', 'users.id', '=', 'oferta__users.user_id')
             ->join('ofertas', 'ofertas.id', '=', 'oferta__users.oferta_id')
+            ->join('estudios', 'estudios.id', '=', 'users.estudios_id')
+            ->join('tecnologias', 'tecnologias.id', '=', 'users.tecnologia_id')
+            ->join('experiencia__users', 'experiencia__users.id', '=', 'users.id')
             ->where('ofertas.empresa_id', '=', $request->user()->id)
             ->where('oferta_id', '=', $param)
+            ->select('ofertas.id', 'users.name', 'prim_apellido', 'seg_apellido', 'users.email', 'users.about', 'users.direccion', 'imagen', 'sexo',
+                'users.telefono', 'tipo_est', 'name_tec', 'experiencia__users.puesto', 'experiencia__users.descripcion', 'fecha_inicio', 'fecha_fin' )
             ->get();
 
         if(!$usuariosOfertas){
@@ -119,7 +124,7 @@ class EmpresaController extends Controller
             if(!$newOferta){
 
                 return response()->json(["data" => [
-                    "error" => "Error. La oferta no se ha eliminado correctamente",
+                    "error" => "Error. La oferta no se ha creado correctamente",
                     "state" => 400]
                 ], 400);
 

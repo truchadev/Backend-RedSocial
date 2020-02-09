@@ -44,11 +44,11 @@ class Empresa extends Authenticatable
     ];
 
     public function ciudades(){
-        return $this->belongsTo('App\Ciudads');
+        return $this->belongsTo('App\Ciudad');
     }
 
     public function ofertas(){
-        return $this->hasMany('App\Ofertas');
+        return $this->hasMany('App\Oferta');
     }
 
 }

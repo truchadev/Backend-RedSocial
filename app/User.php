@@ -45,26 +45,26 @@ class User extends Authenticatable
 
     public function ofertas()
     {
-        return $this->belongsToMany('App\Ofertas');
+        return $this->belongsToMany('App\Oferta');
     }
 
     public function tecnologias()
     {
-        return $this->belongsToMany('App\Tecnologias');
+        return $this->belongsTo('App\Tecnologia');
     }
 
     public function ciudades()
     {
-        return $this->belongsTo('App\Ciudads');
+        return $this->belongsTo('App\Ciudad');
     }
 
     public function estudios()
     {
-        return $this->belongsToMany('App\Estudios');
+        return $this->belongsTo('App\Estudio');
     }
 
     public function experiencias()
     {
-        return $this->belongsTo('App\Experiencia_Users');
+        return $this->belongsTo('App\Experiencia_User');
     }
 }

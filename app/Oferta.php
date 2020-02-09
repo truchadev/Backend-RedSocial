@@ -37,27 +37,27 @@ class Oferta extends Model
     ];
 
     public function users(){
-        return $this->belongsToMany('App\Users');
+        return $this->belongsToMany('App\User');
     }
 
     public function tecnologias(){
-        return $this->belongsToMany('App\Tecnologias', 'ofertas__tecnologias', 'tecnologia_id', 'oferta_id');
+        return $this->belongsTo('App\Tecnologia');
     }
 
     public function ciudades(){
-        return $this->belongsTo('App\Ciudads');
+        return $this->belongsTo('App\Ciudad');
     }
 
     public function contratos(){
-        return $this->belongsTo('App\Contratos');
+        return $this->belongsTo('App\Contrato');
     }
 
     public function estudios(){
-        return $this->belongsTo('App\Estudios');
+        return $this->belongsTo('App\Estudio');
     }
 
     public function j_laborales(){
-        return $this->belongsTo('App\j_Laborals');
+        return $this->belongsTo('App\j_Laboral');
     }
 
     public function empresas(){

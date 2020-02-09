@@ -40,10 +40,10 @@ class Experiencia_User extends Model
 
 
     public function ciudades(){
-        return $this->belongsTo('App\Ciudads');
+        return $this->belongsTo('App\Ciudad');
     }
 
     public function users(){
-        return $this->hasMany('App\Users');
+        return $this->hasMany('App\User');
     }
 }
