@@ -147,10 +147,10 @@ class EstudioUserController extends Controller
             ]]);
         }
 
-        return response()->json(["data" => [
+        return response()->json([
             "message" => "Consulta realizada.",
-            "elemento" => $experiencia,
-            "state" => 200]
+            "obj" => $experiencia,
+            "state" => 200
         ], 200);
 
         //route

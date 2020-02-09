@@ -50,8 +50,9 @@ Route::get('jornadas', 'JLaboralController@show');
 Route::get('estados', 'EstadoController@show');
 Route::get('ofertas', 'OfertaController@mostrar');
 
+
 //busquedas
-Route::get('ofertas/{id}', 'OfertaController@mostrarId');//mostrar ofertas de empresas por id de empresa
+//Route::get('ofertas/{id}', 'OfertaController@mostrarId');//mostrar ofertas de empresas por id de empresa
 
 //AUTH
 Route::group(['prefix' => 'auth'], function () {//todas las rutas así en postman http://127.0.0.1:8000/api/auth/login
@@ -80,6 +81,14 @@ Route::group(['middleware' => 'auth:api'], function () {//todas las rutas así e
     Route::post('user/estudios/update/{id}', 'EstudioUserController@update');
     Route::post('user/estudios/create', 'EstudioUserController@create');
     Route::get('user/ofertas/create/{id}', 'OfertaUserController@create');
+    //probadas
+    Route::get('ofertas/{id}', 'OfertaController@mostrarId');//mostrar ofertas de empresas por id de empresa
+    Route::get('ofertas/provincia/{id}', 'OfertaController@provincia');//ofertas por id ciudades
+    Route::get('ofertas/estudios/{id}', 'OfertaController@estudios');//ofertas por estudios
+    Route::get('ofertas/experiencia/{id}', 'OfertaController@experiencia');//ofertas por experiencia
+    Route::get('ofertas/salario/{id}', 'OfertaController@salario');//ofertas por salario
+    Route::get('ofertas/jornada/{id}', 'OfertaController@jornada');//ofertas por jornada
+    Route::get('ofertas/contratos/{id}', 'OfertaController@contratos');//ofertas por contrato
 
 });
 
@@ -107,11 +116,11 @@ Route::fallback(function () {
 
 //RUTAS OFERTAS
 //Route::get('ofertas/populares', 'OfertaController@showOfertasPopularidad');
-Route::get('ofertas/provincia/{id}', 'OfertaController@provincia');
-Route::get('ofertas/contrato/{id}', 'OfertaController@contrato');
-Route::get('ofertas/j-laboral/{id}', 'OfertaController@j_laboral');
-Route::get('ofertas/salario/{id}', 'OfertaController@salario');
-Route::get('ofertas/experiencia/{id}', 'OfertaController@experiencia');
-Route::get('ofertas/estudios/{id}', 'OfertaController@estudios');
+//Route::get('ofertas/provincia/{id}', 'OfertaController@provincia');
+//Route::get('ofertas/contrato/{id}', 'OfertaController@contrato');
+//Route::get('ofertas/j-laboral/{id}', 'OfertaController@j_laboral');
+//Route::get('ofertas/salario/{id}', 'OfertaController@salario');
+//Route::get('ofertas/experiencia/{id}', 'OfertaController@experiencia');
+
 
 

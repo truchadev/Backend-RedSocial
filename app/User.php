@@ -22,9 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'active', 'activation_token', 'ciudad_id','ciudad_id'
-                ,'tecnologia_id'
-                ,'estudios_id'
+        'name', 'email', 'password', 'active', 'activation_token', 'ciudad_id', 'ciudad_id', 'tecnologia_id', 'estudios_id'
     ];
 
     /**
@@ -33,7 +31,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-         'remember_token', 'activation_token'
+        'remember_token', 'activation_token'
     ];
 
     /**
@@ -45,23 +43,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function ofertas(){
+    public function ofertas()
+    {
         return $this->belongsToMany('App\Ofertas');
     }
 
-    public function tecnologias(){
+    public function tecnologias()
+    {
         return $this->belongsToMany('App\Tecnologias');
     }
 
-    public function ciudades(){
+    public function ciudades()
+    {
         return $this->belongsTo('App\Ciudads');
     }
 
-    public function estudios(){
+    public function estudios()
+    {
         return $this->belongsToMany('App\Estudios');
     }
 
-    public function experiencias(){
+    public function experiencias()
+    {
         return $this->belongsTo('App\Experiencia_Users');
     }
 }

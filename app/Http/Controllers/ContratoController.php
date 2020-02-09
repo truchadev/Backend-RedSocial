@@ -13,16 +13,16 @@ class ContratoController extends Controller
 
         if(!$contratos){
 
-            return response()->json(["data" => [
+            return response()->json([
                 "error" => "Error. La oferta no se ha eliminado correctamente",
-                "state" => 400]
+                "state" => 400
             ], 400);
 
         }else {
-            return response()->json(["data" => [
+            return response()->json([
                 "message" => "Oferta creada correctamente.",
-                "data" => $contratos,
-                "state" => 200]
+                "obj" => $contratos,
+                "state" => 200
             ], 200);
         }
     }

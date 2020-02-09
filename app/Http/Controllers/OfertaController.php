@@ -129,6 +129,7 @@ class OfertaController extends Controller
 //        Session::flash('success', 'Marca "' . $marca->nombre . '" eliminada');
 //        return redirect()->route('marcas.index');
     }
+
 //mostrar oferats
     public function mostrar()
     {
@@ -142,15 +143,15 @@ class OfertaController extends Controller
             ->join('tecnologias', 'tecnologias.id', '=', 'ofertas.tecnologia_id')
             ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
             ->select('ofertas.id', 'puesto', 'salario_min', 'salario_max', 'descripcion', 'name', 'cif', 'email', 'about', 'direccion',
-                'imagen_logo', 'name_responsable', 'telefono', 'web', 'name_ciu', 'tipo_jorn', 'tipo_cont', 'name_tec','tipo_est'
+                'imagen_logo', 'name_responsable', 'telefono', 'web', 'name_ciu', 'tipo_jorn', 'tipo_cont', 'name_tec', 'tipo_est', 'experiencia_min'
             )
             ->get();
 
         if (!$ofertas) {
 
-            return response()->json(["data" => [
+            return response()->json([
                 "error" => "Error. La oferta no se ha mostrado correctamente",
-                "state" => 400]
+                "state" => 400
             ], 400);
 
         } else {
@@ -160,9 +161,10 @@ class OfertaController extends Controller
                 "state" => 200
             ], 200);
         }
+        Route::get('ofertas', 'OfertaController@mostrar');
     }
 
-    //mostrar ofertas de una empresa
+    //mostrar ofertas de una empresa por id oferta
     public function mostrarId($id)
     {
 
@@ -174,28 +176,22 @@ class OfertaController extends Controller
             ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
             ->join('tecnologias', 'tecnologias.id', '=', 'ofertas.tecnologia_id')
             ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
-//            ->whereColumn([
-//                ['ofertas.id', '=', 'ofertas__tecnologias.oferta_id'],
-//                ['ofertas__tecnologias.tecnologia_id', '=', 'tecnologias.id']
-//            ])
-//            ->having('ofertas.id', '=', $id)
-            ->where('ofertas.id', '=', $id)
             ->select('ofertas.id', 'puesto', 'salario_min', 'salario_max', 'descripcion', 'name', 'cif', 'email', 'about', 'direccion',
-                'imagen_logo', 'name_responsable', 'telefono', 'web', 'name_ciu', 'tipo_jorn', 'tipo_cont', 'name_tec','tipo_est'
-                )
+                'imagen_logo', 'name_responsable', 'telefono', 'web', 'name_ciu', 'tipo_jorn', 'tipo_cont', 'name_tec', 'tipo_est', 'experiencia_min'
+            )
             ->first();
 
 
         if (!$ofertas) {
 
-            return response()->json(["data" => [
+            return response()->json([
                 "error" => "Error. La oferta no se ha mostrado correctamente",
-                "state" => 400]
+                "state" => 400
             ], 400);
 
         } else {
             return response()->json([
-                "message" => "Petición correctamente.",
+                "message" => "Petición correcta.",
                 "obj" => $ofertas,
                 "state" => 200
             ], 200);
@@ -205,151 +201,366 @@ class OfertaController extends Controller
         Route::get('ofertas/{id}', 'OfertaController@mostrarId');
     }
 
+    //mostrar ofertas por id de provincia
     public function provincia($id)
     {
 
-        $ofertasProvincia = DB::table('ofertas')
+        $ofertas = DB::table('ofertas')
+            ->where('ofertas.ciudad_id', '=', $id)
+            ->join('empresas', 'empresas.id', '=', 'ofertas.empresa_id')
             ->join('ciudads', 'ciudads.id', '=', 'ofertas.ciudad_id')
-            ->where('ciudad_id', '=', $id)
-            ->get();
-
-        if (!$ofertasProvincia) {
-
-            return response()->json(["data" => [
-                "error" => "Error. La oferta no se ha eliminado correctamente",
-                "state" => 400]
-            ], 400);
-
-        } else {
-            return response()->json(["data" => [
-                "message" => "Oferta creada correctamente.",
-                "data" => $ofertasProvincia,
-                "state" => 200]
-            ], 200);
-        }
-    }
-
-    public function contrato($id)
-    {
-
-        $ofertasContrato = DB::table('ofertas')
-            ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
-            ->where('tipo_contrato_id', '=', $id)
-            ->get();
-
-        if (!$ofertasContrato) {
-
-            return response()->json(["data" => [
-                "error" => "Error. La oferta no se ha eliminado correctamente",
-                "state" => 400]
-            ], 400);
-
-        } else {
-            return response()->json(["data" => [
-                "message" => "Oferta creada correctamente.",
-                "data" => $ofertasContrato,
-                "state" => 200]
-            ], 200);
-        }
-    }
-
-    public function j_laboral($id)
-    {
-
-        $ofertasJornada = DB::table('ofertas')
             ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
-            ->where('tipo_jornada_id', '=', $id)
+            ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
+//            ->join('ofertas__tecnologias', 'ofertas__tecnologias.oferta_id','=','ofertas.id' )
+            ->join('tecnologias', 'tecnologias.id', '=', 'ofertas.tecnologia_id')
+            ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
+            ->select('ofertas.id', 'puesto', 'salario_min', 'salario_max', 'descripcion', 'name', 'cif', 'email', 'about', 'direccion',
+                'imagen_logo', 'name_responsable', 'telefono', 'web', 'name_ciu', 'tipo_jorn', 'tipo_cont', 'name_tec', 'tipo_est', 'experiencia_min'
+            )
             ->get();
 
-        if (!$ofertasJornada) {
+        if (!$ofertas) {
 
-            return response()->json(["data" => [
-                "error" => "Error. La oferta no se ha eliminado correctamente",
-                "state" => 400]
+            return response()->json([
+                "error" => "Error. La oferta no se ha mostrado correctamente",
+                "state" => 400
             ], 400);
 
         } else {
-            return response()->json(["data" => [
-                "message" => "Oferta creada correctamente.",
-                "data" => $ofertasJornada,
-                "state" => 200]
+            return response()->json([
+                "message" => "Petición correctamente.",
+                "obj" => $ofertas,
+                "state" => 200
             ], 200);
         }
+        Route::get('ofertas/provincia/{id}', 'OfertaController@provincia');//ofertas por id ciudades
     }
 
-    public function salario(Request $request, $id)
-    {
-        try {
-            $ofertasSalario = DB::table('ofertas')
-                ->where('salario_min', '<=', $id)
-                ->where('salario_max', '>=', $id)
-                ->orderBy('salario_min', 'desc')
-                ->get();
-
-
-            return response()->json(["data" => [
-                "message" => "Oferta creada correctamente.",
-                "data" => $ofertasSalario,
-                "state" => 200]
-            ], 200);
-
-        } catch (\Illuminate\Database\QueryException  $e) {
-
-            return response()->json(["data" => [
-                "error" => "Error. Comprueba tus parámetros de consulta.",
-                "state" => 400]
-            ], 400);
-
-        }
-    }
-
+    //mostrar ofertas por id de provincia
     public function experiencia($id)
     {
+        $ofertas = DB::table('ofertas')
+            ->where('ofertas.experiencia_min', '<=', $id)
+            ->join('empresas', 'empresas.id', '=', 'ofertas.empresa_id')
+            ->join('ciudads', 'ciudads.id', '=', 'ofertas.ciudad_id')
+            ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
+            ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
+            ->join('tecnologias', 'tecnologias.id', '=', 'ofertas.tecnologia_id')
+            ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
+            ->select('ofertas.id', 'puesto', 'salario_min', 'salario_max', 'descripcion', 'name', 'cif', 'email', 'about', 'direccion',
+                'imagen_logo', 'name_responsable', 'telefono', 'web', 'name_ciu', 'tipo_jorn', 'tipo_cont', 'name_tec', 'tipo_est', 'experiencia_min'
+            )
+            ->get();
 
-        if (is_numeric($id)) {
-            $ofertasExp = DB::table('ofertas')
-                ->where('experiencia_min', '<=', $id)
-                ->orderBy('experiencia_min', 'desc')
-                ->get();
+        if (!$ofertas) {
 
-            return response()->json(["data" => [
-                "message" => "Oferta creada correctamente.",
-                "data" => $ofertasExp,
-                "state" => 200]
-            ], 200);
+            return response()->json([
+                "error" => "Error. La oferta no se ha mostrado correctamente",
+                "state" => 400
+            ], 400);
 
         } else {
-            return response()->json(["data" => [
-                "error" => "Error. Comprueba tus parámetros de consulta.",
-                "state" => 400]
-            ], 400);
+            return response()->json([
+                "message" => "Petición correctamente.",
+                "obj" => $ofertas,
+                "state" => 200
+            ], 200);
         }
+        Route::get('ofertas/experiencia/{id}', 'OfertaController@experiencia');//ofertas por experiencia
     }
 
+    //mostrar ofertas por id de provincia
+    public function salario($id)
+    {
+
+        $ofertas = DB::table('ofertas')
+            ->where('ofertas.salario_min', '>=', $id)
+            ->join('empresas', 'empresas.id', '=', 'ofertas.empresa_id')
+            ->join('ciudads', 'ciudads.id', '=', 'ofertas.ciudad_id')
+            ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
+            ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
+            ->join('tecnologias', 'tecnologias.id', '=', 'ofertas.tecnologia_id')
+            ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
+            ->select('ofertas.id', 'puesto', 'salario_min', 'salario_max', 'descripcion', 'name', 'cif', 'email', 'about', 'direccion',
+                'imagen_logo', 'name_responsable', 'telefono', 'web', 'name_ciu', 'tipo_jorn', 'tipo_cont', 'name_tec', 'tipo_est', 'experiencia_min'
+            )
+            ->get();
+
+        if (!$ofertas) {
+
+            return response()->json([
+                "error" => "Error. La oferta no se ha mostrado correctamente",
+                "state" => 400
+            ], 400);
+
+        } else {
+            return response()->json([
+                "message" => "Petición correctamente.",
+                "obj" => $ofertas,
+                "state" => 200
+            ], 200);
+        }
+        Route::get('ofertas/salario/{id}', 'OfertaController@experiencia');//ofertas por salario
+    }
+
+    //mostrar ofertas por id de provincia
+    public function jornada($id)
+    {
+
+        $ofertas = DB::table('ofertas')
+            ->where('ofertas.tipo_jornada_id', '=', $id)
+            ->join('empresas', 'empresas.id', '=', 'ofertas.empresa_id')
+            ->join('ciudads', 'ciudads.id', '=', 'ofertas.ciudad_id')
+            ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
+            ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
+            ->join('tecnologias', 'tecnologias.id', '=', 'ofertas.tecnologia_id')
+            ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
+            ->select('ofertas.id', 'puesto', 'salario_min', 'salario_max', 'descripcion', 'name', 'cif', 'email', 'about', 'direccion',
+                'imagen_logo', 'name_responsable', 'telefono', 'web', 'name_ciu', 'tipo_jorn', 'tipo_cont', 'name_tec', 'tipo_est', 'experiencia_min'
+            )
+            ->get();
+
+        if (!$ofertas) {
+
+            return response()->json([
+                "error" => "Error. La oferta no se ha mostrado correctamente",
+                "state" => 400
+            ], 400);
+
+        } else {
+            return response()->json([
+                "message" => "Petición correctamente.",
+                "obj" => $ofertas,
+                "state" => 200
+            ], 200);
+        }
+        Route::get('ofertas/jornada/{id}', 'OfertaController@jornada');//ofertas por jornada
+    }
+
+    //mostrar ofertas por id de provincia
+    public function contratos($id)
+    {
+
+        $ofertas = DB::table('ofertas')
+            ->where('ofertas.tipo_contrato_id', '=', $id)
+            ->join('empresas', 'empresas.id', '=', 'ofertas.empresa_id')
+            ->join('ciudads', 'ciudads.id', '=', 'ofertas.ciudad_id')
+            ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
+            ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
+            ->join('tecnologias', 'tecnologias.id', '=', 'ofertas.tecnologia_id')
+            ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
+            ->select('ofertas.id', 'puesto', 'salario_min', 'salario_max', 'descripcion', 'name', 'cif', 'email', 'about', 'direccion',
+                'imagen_logo', 'name_responsable', 'telefono', 'web', 'name_ciu', 'tipo_jorn', 'tipo_cont', 'name_tec', 'tipo_est', 'experiencia_min'
+            )
+            ->get();
+
+        if (!$ofertas) {
+
+            return response()->json([
+                "error" => "Error. La oferta no se ha mostrado correctamente",
+                "state" => 400
+            ], 400);
+
+        } else {
+            return response()->json([
+                "message" => "Petición correctamente.",
+                "obj" => $ofertas,
+                "state" => 200
+            ], 200);
+        }
+        Route::get('ofertas/contratos/{id}', 'OfertaController@contratos');//ofertas por contrato
+    }
+
+    //mostrar ofertas por id de provincia
     public function estudios($id)
     {
 
-        $ofertasEstu = DB::table('ofertas')
+        $ofertas = DB::table('ofertas')
+            ->where('ofertas.estudios_min_id', '=', $id)
+            ->join('empresas', 'empresas.id', '=', 'ofertas.empresa_id')
+            ->join('ciudads', 'ciudads.id', '=', 'ofertas.ciudad_id')
+            ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
+            ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
+            ->join('tecnologias', 'tecnologias.id', '=', 'ofertas.tecnologia_id')
             ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
-            ->where('estudios_min_id', '=', $id)
+            ->select('ofertas.id', 'puesto', 'salario_min', 'salario_max', 'descripcion', 'name', 'cif', 'email', 'about', 'direccion',
+                'imagen_logo', 'name_responsable', 'telefono', 'web', 'name_ciu', 'tipo_jorn', 'tipo_cont', 'name_tec', 'tipo_est', 'experiencia_min'
+            )
             ->get();
 
+        if (!$ofertas) {
 
-        if (!$ofertasEstu) {
-
-            return response()->json(["data" => [
-                "error" => "Error. La oferta no se ha eliminado correctamente",
-                "state" => 400]
+            return response()->json([
+                "error" => "Error. La oferta no se ha mostrado correctamente",
+                "state" => 400
             ], 400);
 
         } else {
-            return response()->json(["data" => [
-                "message" => "Oferta creada correctamente.",
-                "data" => $ofertasEstu,
-                "state" => 200]
+            return response()->json([
+                "message" => "Petición correctamente.",
+                "obj" => $ofertas,
+                "state" => 200
             ], 200);
         }
+        Route::get('ofertas/estudios/{id}', 'OfertaController@estudios');//ofertas por contrato
     }
+
+
+//    public function provincia($id)
+//    {
+//        try {
+//            $ofertasProvincia = DB::table('ofertas')
+//                ->join('ciudads', 'ciudads.id', '=', 'ofertas.ciudad_id')
+//                ->where('ciudad_id', '=', $id)
+//                ->get();
+//
+//            if (!$ofertasProvincia) {
+//
+//                return response()->json([
+//                    "error" => "Error. Petición Fallida.",
+//                    "state" => 400
+//                ], 400);
+//
+//            } else {
+//                return response()->json([
+//                    "message" => "Petición correcta.",
+//                    "obj" => $ofertasProvincia,
+//                    "name" => $ofertasProvincia[0]->name_ciu,
+//                    "state" => 200
+//                ], 200);
+//            }
+//        } catch (\Exception $e) {
+//            return response()->json([
+//                "error" => "Error. Petición Fallida.",
+//                "name"=>"Sin resultados",
+//                "state" => 400
+//            ], 400);
+//        }
+//        //probada
+//        Route::get('ofertas/provincia/{id}', 'OfertaController@provincia');//ofertas por id ciudades
+//    }
+//
+//    public function contrato($id)
+//    {
+//
+//        $ofertasContrato = DB::table('ofertas')
+//            ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
+//            ->where('tipo_contrato_id', '=', $id)
+//            ->get();
+//
+//        if (!$ofertasContrato) {
+//
+//            return response()->json(["data" => [
+//                "error" => "Error. La oferta no se ha eliminado correctamente",
+//                "state" => 400]
+//            ], 400);
+//
+//        } else {
+//            return response()->json(["data" => [
+//                "message" => "Oferta creada correctamente.",
+//                "data" => $ofertasContrato,
+//                "state" => 200]
+//            ], 200);
+//        }
+//    }
+//
+//    public function j_laboral($id)
+//    {
+//
+//        $ofertasJornada = DB::table('ofertas')
+//            ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
+//            ->where('tipo_jornada_id', '=', $id)
+//            ->get();
+//
+//        if (!$ofertasJornada) {
+//
+//            return response()->json(["data" => [
+//                "error" => "Error. La oferta no se ha eliminado correctamente",
+//                "state" => 400]
+//            ], 400);
+//
+//        } else {
+//            return response()->json(["data" => [
+//                "message" => "Oferta creada correctamente.",
+//                "data" => $ofertasJornada,
+//                "state" => 200]
+//            ], 200);
+//        }
+//    }
+//
+//    public function salario(Request $request, $id)
+//    {
+//        try {
+//            $ofertasSalario = DB::table('ofertas')
+//                ->where('salario_min', '<=', $id)
+//                ->where('salario_max', '>=', $id)
+//                ->orderBy('salario_min', 'desc')
+//                ->get();
+//
+//
+//            return response()->json(["data" => [
+//                "message" => "Oferta creada correctamente.",
+//                "data" => $ofertasSalario,
+//                "state" => 200]
+//            ], 200);
+//
+//        } catch (\Illuminate\Database\QueryException  $e) {
+//
+//            return response()->json(["data" => [
+//                "error" => "Error. Comprueba tus parámetros de consulta.",
+//                "state" => 400]
+//            ], 400);
+//
+//        }
+//    }
+//
+//    public function experiencia($id)
+//    {
+//
+//        if (is_numeric($id)) {
+//            $ofertasExp = DB::table('ofertas')
+//                ->where('experiencia_min', '<=', $id)
+//                ->orderBy('experiencia_min', 'desc')
+//                ->get();
+//
+//            return response()->json(["data" => [
+//                "message" => "Oferta creada correctamente.",
+//                "data" => $ofertasExp,
+//                "state" => 200]
+//            ], 200);
+//
+//        } else {
+//            return response()->json(["data" => [
+//                "error" => "Error. Comprueba tus parámetros de consulta.",
+//                "state" => 400]
+//            ], 400);
+//        }
+//    }
+//
+//    public function estudios($id)
+//    {
+//
+//        $ofertasEstu = DB::table('ofertas')
+//            ->join('estudios', 'estudios.id', '=', 'ofertas.estudios_min_id')
+//            ->where('estudios_min_id', '=', $id)
+//            ->get();
+//
+//
+//        if (!$ofertasEstu) {
+//
+//            return response()->json([
+//                "error" => "Error. Petición errónea.",
+//                "state" => 400
+//            ], 400);
+//
+//        } else {
+//            return response()->json([
+//                "message" => "Petición correcta.",
+//                "obj" => $ofertasEstu,
+//                "state" => 200
+//            ], 200);
+//        }
+//    }
 
 
 }
