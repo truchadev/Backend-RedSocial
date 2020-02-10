@@ -14,39 +14,40 @@ class OfertaUserController extends Controller
      * Create the specified resource from storage.
      *              OFERTA-USERS
      */
-    public function create(Request $request, $id)
+    public function create(Request $request)
     {
 
         $idUser = $request->user()->id;
+
         try {
 
             $oferta = DB::table('oferta__users')
-                ->where('oferta_id', $id)
-                ->where('user_id', $idUser);
+                ->where('oferta_id', '=', $request->oferta_id)
+                ->where('user_id', '=',  $idUser);
+
 
 
             if ($oferta->first()) {
-                return response()->json(['data' => [
+                return response()->json([
                     "error" => "Ya estás registrado en esta oferta."
-                ]]);
+                ]);
             }
-
             $oferta = DB::table('oferta__users')
-                ->insert(['oferta_id' => $id, 'user_id' => $idUser, 'estado_id' => 1]);
+            ->insert(['oferta_id' => $request->oferta_id, 'user_id' => $idUser, 'estado_id' => 1]);
 
 
-            return response()->json(["data" => [
+            return response()->json( [
                 "message" => "Creado correctamente.",
                 'obj' => $oferta,
                 "state" => 200]
-            ], 200);
+            , 200);
 
         } catch (\Illuminate\Database\QueryException  $e) {
 
-            return response()->json(["data" => [
+            return response()->json( [
                 "error" => "Error. Comprueba tus parámetros de consulta.",
                 "state" => 400]
-            ], 400);
+            , 400);
 
         };
 
