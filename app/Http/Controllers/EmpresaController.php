@@ -262,11 +262,11 @@ class EmpresaController extends Controller
                 "error" => "Algo falló en el servidor. Inténtelo más tarde."
             ]]);
         }
-        return response()->json(["data" => [
+        return response()->json( [
             "message" => "Aceptada",
-            "data" => $empresa,
+            "obj" => $empresa,
             "state" => 200]
-        ], 200);
+        , 200);
     }
 
 
