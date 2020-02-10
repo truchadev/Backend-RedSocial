@@ -90,6 +90,7 @@ Route::group(['middleware' => 'auth:api'], function () {//todas las rutas así e
     Route::get('ofertas/salario/{id}', 'OfertaController@salario');//ofertas por salario
     Route::get('ofertas/jornada/{id}', 'OfertaController@jornada');//ofertas por jornada
     Route::get('ofertas/contratos/{id}', 'OfertaController@contratos');//ofertas por contrato
+    Route::get('ofertas/empresas/{id}', 'OfertaController@empresas');//ofertas por nombre de empresa
 
 });
 
