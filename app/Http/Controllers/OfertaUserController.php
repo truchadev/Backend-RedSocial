@@ -108,4 +108,32 @@ class OfertaUserController extends Controller
         //Route
        // Route::post('empresa/estado/update/{id}', 'OfertaUserController@update');
     }
+
+    public function mostrarOfertas(Request $request) {
+
+        $user = $request->user();
+        $oferta = DB::table('oferta__users')
+            ->where('user_id', '=', $user->id)
+            ->join('ofertas', 'ofertas.id', '=', 'oferta__users.oferta_id')
+            //->join('ciudads', 'ciudads.id', '=', $user->ciudad_id)
+            ->join('empresas', 'empresas.id', '=', 'ofertas.empresa_id')
+            ->join('estados', 'estados.id', '=', 'oferta__users.estado_id')
+            ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
+            ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
+            ->select( 'puesto', 'name', 'salario_max', 'salario_min', 'tipo_est', 'descripcion', 'tipo_cont', 'tipo_jorn' )
+            ->get();
+
+        if(!$oferta){
+            return response()->json([
+                "error" => "Error. La oferta no se ha mostrado correctamente",
+                "state" => 400
+            ], 400);
+        }else {
+            return response()->json( [
+                    "message" => "Aceptada",
+                    "obj" => $oferta,
+                    "state" => 200]
+                , 200);
+        }
+    }
 }
