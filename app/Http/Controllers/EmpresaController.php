@@ -254,7 +254,7 @@ class EmpresaController extends Controller
 
     public function showEmpresasName (){
         $empresa = DB::table('empresas')
-            ->select('name')
+            ->select('id','name')
             ->get();
 
         if (!$empresa) {
