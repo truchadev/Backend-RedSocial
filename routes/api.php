@@ -49,6 +49,7 @@ Route::get('contratos', 'ContratoController@show');
 Route::get('jornadas', 'JLaboralController@show');
 Route::get('estados', 'EstadoController@show');
 Route::get('ofertas', 'OfertaController@mostrar');
+Route::get('empresas', 'EmpresaController@showEmpresasName');
 
 
 //busquedas

@@ -250,6 +250,25 @@ class EmpresaController extends Controller
 
     }
 
+    // MOSTRAR TODAS LAS EMPRESAS POR NOMBRE
+
+    public function showEmpresasName (){
+        $empresa = DB::table('empresas')
+            ->select('name')
+            ->get();
+
+        if (!$empresa) {
+            return response()->json(['data' => [
+                "error" => "Algo falló en el servidor. Inténtelo más tarde."
+            ]]);
+        }
+        return response()->json(["data" => [
+            "message" => "Aceptada",
+            "data" => $empresa,
+            "state" => 200]
+        ], 200);
+    }
+
 
 }
 
