@@ -81,7 +81,7 @@ Route::group(['middleware' => 'auth:api'], function () {//todas las rutas así e
     Route::get('user/estudios/show', 'EstudioUserController@show');
     Route::post('user/estudios/update/{id}', 'EstudioUserController@update');
     Route::post('user/estudios/create', 'EstudioUserController@create');
-    Route::get('user/ofertas/create/{id}', 'OfertaUserController@create');
+    Route::post('user/ofertas/create/{id}', 'OfertaUserController@create');
     //probadas
     Route::get('ofertas/{id}', 'OfertaController@mostrarId');//mostrar ofertas de empresas por id de empresa
     Route::get('ofertas/provincia/{id}', 'OfertaController@provincia');//ofertas por id ciudades
