@@ -30,6 +30,7 @@ $factory->define(User::class, function (Faker $faker) {
         'tecnologia_id'=>\App\Tecnologia::all()->random()->id,
         'estudios_id'=>\App\Estudio::all()->random()->id,
         'direccion'=> $faker->address,
-        'telefono' => 665543261
+        'telefono' => 665543261,
+        'imagen' => "https://cdn.pixabay.com/photo/2015/09/02/13/24/girl-919048_1280.jpg"
     ];
 });

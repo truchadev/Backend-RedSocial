@@ -29,7 +29,7 @@ class CreateEmpresasTable extends Migration
                 ->onDelete('restrict')->nullable();
 
             $table->string('direccion', 250)->nullable();
-            $table->binary('imagen_logo')->nullable();
+            $table->string('imagen_logo')->nullable();
             $table->string('name_responsable', 50)->nullable();;
             $table->integer('telefono')->nullable()->unsigned();
             $table->string('web', 250)->nullable();

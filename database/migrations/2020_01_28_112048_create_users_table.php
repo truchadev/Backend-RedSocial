@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
                 ->references('id')
                 ->onDelete('restrict')->nullable();
             $table->string('direccion', 100)->nullable();
-            $table->binary('imagen')->nullable($value= true);
+            $table->string('imagen')->nullable($value= true);
             $table->string('sexo', 50)->nullable();
             //nuevos
             $table->unsignedBigInteger('tecnologia_id');

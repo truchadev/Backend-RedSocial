@@ -16,6 +16,7 @@ $factory->define(Empresa::class, function (Faker $faker) {
         'direccion' => $faker -> address,
         'name_responsable' => $faker -> name,
         'telefono' => 96123456,
-        'web'=> $faker -> url
+        'web'=> $faker -> url,
+        'imagen_logo'=> "https://image.freepik.com/vector-gratis/logotipo-poligonal-hexagono_1061-517.jpg"
     ];
 });
