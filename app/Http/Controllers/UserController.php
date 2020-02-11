@@ -95,6 +95,7 @@ class UserController extends Controller
         }
         return response()->json([
             "message" => "Cambios realizados correctamente.",
+            "obj"=>$request->user(),
             "state" => 200
         ], 200);
         //route
