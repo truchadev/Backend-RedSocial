@@ -61,30 +61,33 @@ class OfertaUserController extends Controller
      * Update the specified resource from storage.
      *              OFERTA-USERS
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         //PROBAR CON EMPRESA REGISTRADA PARA CAPTURAR ID DESDE TOKEN
         try {
-            $validator = $this->validate($request, [
+            $this->validate($request, [
                 'user_id' => 'numeric',
                 'estado_id' => 'numeric',
                 'oferta_id' => 'numeric',
             ]);
 
             $datos = $request->all();
+            //$user = $request->user();
+
 
             $oferta = DB::table('oferta__users')
+                ->where('oferta__users.id', '=', $id)
                 ->where('user_id', '=',$request->user_id)
                 ->where('oferta_id', '=', $request->oferta_id)
-                ->join('ofertas', 'oferta__users.oferta_id', '=', 'ofertas.id')
-                ->where('empresa_id', '=', 9)//CAMBIAR POR EL USER DEL TOKEN
+              //  ->join('ofertas', 'oferta__users.oferta_id', '=', 'ofertas.id')
+                //->where('empresa_id', '=', '')//CAMBIAR POR EL USER DEL TOKEN
 
 //                ->where('user_id', $request->user_id)
 //                ->update('estado_id', $datos->estado_id);
                 ->update($datos);
 
-            if($oferta === 0){
+            if(!$oferta === 0){
                 return response()->json(["data" => [
                     "error" => "La consulta contiene los mismos parámetros",
                     "state" => 400]

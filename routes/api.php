@@ -111,6 +111,8 @@ Route::group(['middleware' => 'auth:empresas'], function (){//todas las rutas as
     Route::delete('empresa/delete/{id}', 'EmpresaController@deleteEmpresa');
     Route::post('empresa/editar', 'EmpresaController@editar');
     Route::post('empresa/estado/update/{id}', 'OfertaUserController@update');
+
+
 });
 //fin nuevas rutas
 ;
