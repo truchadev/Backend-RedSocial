@@ -67,36 +67,35 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-       // return $request->user();
-        $validator = $this->validate($request, [
-            'name' => 'alpha|max:255',
-            'prim_apellido' => 'alpha|max:255',
-            'seg_apellido' => 'alpha|max:255',
-            'email' => 'email|unique:users',
-            'password' => 'min:6',
-            'about' => 'max:6|alpha_num',
-            'ciudad_id' => 'numeric',
-            'direccion' => 'max:255',
-            'imagen' => 'url',
-            'sexo' => 'alpha',
-            'especialidad' => '',
-            'telefono' => 'numeric',
-        ]);
 
-        $datos = $request->all();
+//        $validator = $this->validate($request, [
+//            'name' => 'alpha|max:255',
+//            'prim_apellido' => 'alpha|max:255',
+//            'seg_apellido' => 'alpha|max:255',
+//            'email' => 'email|unique:users',
+//            'password' => 'min:6',
+//            'about' => 'max:6|alpha_num',
+//            'ciudad_id' => 'numeric',
+//            'direccion' => 'max:255',
+//            'imagen' => 'url',
+//            'sexo' => 'alpha',
+//            'especialidad' => '',
+//            'telefono' => 'numeric',
+//        ]);
+
 
         $user = DB::table('users')
             ->where('id', $request->user()->id)
-            ->update($datos);
+            ->update($request->all());
 
         if (!$user) {
             return response()->json(['data' => [
                 "error" => "Algo falló en el servidor. Inténtelo más tarde."
             ]]);
         }
-        return response()->json(["data" => [
+        return response()->json([
             "message" => "Cambios realizados correctamente.",
-            "state" => 200]
+            "state" => 200
         ], 200);
         //route
        // Route::post('user/update', 'UserController@update');
