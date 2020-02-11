@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Oferta;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use mysql_xdevapi\Table;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -120,7 +121,7 @@ class OfertaUserController extends Controller
             ->join('estados', 'estados.id', '=', 'oferta__users.estado_id')
             ->join('contratos', 'contratos.id', '=', 'ofertas.tipo_contrato_id')
             ->join('j__laborals', 'j__laborals.id', '=', 'ofertas.tipo_jornada_id')
-            ->select( 'puesto', 'name', 'salario_max', 'salario_min', 'tipo_est', 'descripcion', 'tipo_cont', 'tipo_jorn' )
+            ->select( 'oferta__users.oferta_id','puesto', 'name', 'salario_max', 'salario_min', 'tipo_est', 'descripcion', 'tipo_cont', 'tipo_jorn' )
             ->get();
 
         if(!$oferta){
@@ -132,6 +133,28 @@ class OfertaUserController extends Controller
             return response()->json( [
                     "message" => "Aceptada",
                     "obj" => $oferta,
+                    "state" => 200]
+                , 200);
+        }
+    }
+
+    public function delete(Request $request, $id){
+
+        $user = $request->user();
+        $oferta = DB::table('oferta__users')
+            ->where('user_id', '=', $user->id)
+            ->where('oferta_id', '=', $id)
+           ->delete();
+
+        if(!$oferta){
+            return response()->json([
+                "error" => "Error. La oferta no se ha eliminado correctamente",
+                "state" => 400
+            ], 400);
+        }else {
+            return response()->json( [
+                    "message" => "Aceptada",
+                   // "obj" => $oferta,
                     "state" => 200]
                 , 200);
         }

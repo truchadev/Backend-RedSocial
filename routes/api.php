@@ -83,6 +83,7 @@ Route::group(['middleware' => 'auth:api'], function () {//todas las rutas así e
     Route::post('user/estudios/create', 'EstudioUserController@create');
     Route::post('user/ofertas/create', 'OfertaUserController@create');
     Route::get('user/mostrar-ofertas', 'OfertaUserController@mostrarOfertas');
+    Route::delete('user/ofertas/delete/{id}', 'OfertaUserController@delete');//el usuario elimina oferta
 
     //probadas
     Route::get('ofertas/{id}', 'OfertaController@mostrarId');//mostrar ofertas de empresas por id de empresa
@@ -93,6 +94,8 @@ Route::group(['middleware' => 'auth:api'], function () {//todas las rutas así e
     Route::get('ofertas/jornada/{id}', 'OfertaController@jornada');//ofertas por jornada
     Route::get('ofertas/contratos/{id}', 'OfertaController@contratos');//ofertas por contrato
     Route::get('ofertas/empresas/{id}', 'OfertaController@empresas');//ofertas por nombre de empresa
+
+
 
 });
 
