@@ -117,7 +117,9 @@ class EmpresaController extends Controller
             'estudios_min_id' => $request->input('estudios_min_id'),
             'tipo_contrato_id' => $request->input('tipo_contrato_id'),
             'tipo_jornada_id' => $request->input('tipo_jornada_id'),
-            'created_at' => null,
+                'tecnologia_id' => $request->input('tecnologia_id'),
+
+                'created_at' => null,
             'updated_at' => null
         ]);
 
