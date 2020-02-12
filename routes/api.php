@@ -104,6 +104,7 @@ Route::group(['middleware' => 'auth:empresas'], function (){//todas las rutas as
 
     //EMPRESAS
         //aquí las rutas de empresas...
+
     Route::get('empresa/ofertas', 'EmpresaController@showOfertas');
     Route::get('empresa/users-ofertas/{id}', 'EmpresaController@showUsuarios');
     Route::post('empresa/new-oferta', 'EmpresaController@nuevaOferta');
