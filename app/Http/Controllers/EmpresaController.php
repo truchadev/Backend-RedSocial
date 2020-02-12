@@ -95,7 +95,7 @@ class EmpresaController extends Controller
         }else {
             return response()->json([
                 "message" => "Petición aceptada.",
-                "data" => $usuariosOfertas,
+                "obj" => $usuariosOfertas,
                 "state" => 200]
             , 200);
         }
