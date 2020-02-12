@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use http\Env\Response;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
@@ -218,14 +219,15 @@ class EmpresaController extends Controller
     //Editar Perfil
     public function editar(Request $request)
     {
+
         $request->user();
         $validator = $this->validate($request, [
-            'name' => 'alpha|max:255',
-            'cif' => 'alpha|max:255',
+            'name' => 'max:255',
+            'cif' => 'max:255',
             'name_responsable'=> 'alpha|max:255',
-            'email' => 'email|unique:users',
+            'email' => 'email|unique:empresas',
             'password' => 'min:6',
-            'about' => 'max:6|alpha_num',
+            'about' => 'max:255',
             'ciudad_id' => 'numeric',
             'direccion' => 'max:255',
             'imagen_log' => 'url',
@@ -240,14 +242,14 @@ class EmpresaController extends Controller
             ->update($datos);
 
         if (!$user) {
-            return response()->json(['data' => [
+            return response()->json([
                 "error" => "Algo falló en el servidor. Inténtelo más tarde."
-            ]]);
+            ]);
         }
-        return response()->json(["data" => [
+        return response()->json([
             "message" => "Cambios realizados correctamente.",
             "data" => $user,
-            "state" => 200]
+            "state" => 200
         ], 200);
 
     }

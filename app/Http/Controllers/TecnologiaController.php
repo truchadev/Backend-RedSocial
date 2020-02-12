@@ -7,18 +7,19 @@ use Illuminate\Http\Request;
 
 class TecnologiaController extends Controller
 {
-    public function show(){
+    public function show()
+    {
 
         $tecnologias = DB::table('tecnologias')->get();
 
-        if(!$tecnologias){
+        if (!$tecnologias) {
 
             return response()->json([
                 "error" => "Error. La oferta no se ha eliminado correctamente",
                 "state" => 400
             ], 400);
 
-        }else {
+        } else {
             return response()->json([
                 "message" => "Oferta creada correctamente.",
                 "obj" => $tecnologias,
