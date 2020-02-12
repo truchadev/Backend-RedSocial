@@ -13,16 +13,16 @@ class TecnologiaController extends Controller
 
         if(!$tecnologias){
 
-            return response()->json(["data" => [
+            return response()->json([
                 "error" => "Error. La oferta no se ha eliminado correctamente",
-                "state" => 400]
+                "state" => 400
             ], 400);
 
         }else {
-            return response()->json(["data" => [
+            return response()->json([
                 "message" => "Oferta creada correctamente.",
-                "data" => $tecnologias,
-                "state" => 200]
+                "obj" => $tecnologias,
+                "state" => 200
             ], 200);
         }
     }

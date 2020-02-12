@@ -57,15 +57,15 @@ class EmpresaController extends Controller
             ->get();
 
         if(!$ofertasEmpresa){
-            return response()->json(["data" => [
+            return response()->json([
                 "error" => "No se ha encontrado nada",
-                "state" => 400]
+                "state" => 400
             ], 400);
         }else {
-            return response()->json(["data" => [
+            return response()->json([
                 "message" => "Petición aceptada.",
-                "data" => $ofertasEmpresa,
-                "state" => 200]
+                "obj" => $ofertasEmpresa,
+                "state" => 200
             ], 200);
         }
     }
