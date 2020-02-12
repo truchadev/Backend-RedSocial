@@ -80,10 +80,11 @@ class EmpresaController extends Controller
             ->join('estudios', 'estudios.id', '=', 'users.estudios_id')
             ->join('tecnologias', 'tecnologias.id', '=', 'users.tecnologia_id')
             ->join('experiencia__users', 'experiencia__users.id', '=', 'users.id')
+           ->join('estados', 'estados.id', '=', 'oferta__users.estado_id')
             ->where('ofertas.empresa_id', '=', $request->user()->id)
             ->where('oferta_id', '=', $param)
             ->select('ofertas.id', 'users.name', 'prim_apellido', 'seg_apellido', 'users.email', 'users.about', 'users.direccion', 'imagen', 'sexo',
-                'users.telefono', 'tipo_est', 'name_tec', 'experiencia__users.puesto', 'experiencia__users.descripcion', 'fecha_inicio', 'fecha_fin' )
+                'users.telefono', 'estudios.tipo_est', 'name_tec', 'experiencia__users.puesto', 'experiencia__users.descripcion', 'fecha_inicio', 'fecha_fin', 'estado_id', 'estados.tipo_est as tipo_estado')
             ->get();
 
         if(!$usuariosOfertas){
