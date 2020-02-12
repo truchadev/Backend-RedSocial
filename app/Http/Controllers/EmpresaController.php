@@ -91,6 +91,7 @@ class EmpresaController extends Controller
                 "error" => "No se ha encontrado nada",
                 "state" => 400]
             , 400);
+
         }else {
             return response()->json([
                 "message" => "Petición aceptada.",
