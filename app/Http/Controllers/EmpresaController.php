@@ -222,25 +222,25 @@ class EmpresaController extends Controller
     {
 
         $request->user();
-        $validator = $this->validate($request, [
-            'name' => 'max:255',
-            'cif' => 'max:255',
-            'name_responsable'=> 'alpha|max:255',
-            'email' => 'email|unique:empresas',
-            'password' => 'min:6',
-            'about' => 'max:255',
-            'ciudad_id' => 'numeric',
-            'direccion' => 'max:255',
-            'imagen_log' => 'url',
-            'telefono' => 'numeric',
-            'web' => 'url',
-        ]);
+//        $validator = $this->validate($request, [
+//            'name' => 'max:255',
+//            'cif' => 'max:255',
+//            'name_responsable'=> 'alpha|max:255',
+//            'email' => 'email|unique:empresas',
+//            'password' => 'min:6',
+//            'about' => 'max:255',
+//            'ciudad_id' => 'numeric',
+//            'direccion' => 'max:255',
+//            'imagen_log' => 'url',
+//            'telefono' => 'numeric',
+//            'web' => 'url',
+//        ]);
 
-        $datos = $request->all();
+//        $datos = $request->all();
 
         $user = DB::table('empresas')
             ->where('id', $request->user()->id)
-            ->update($datos);
+            ->update($request->all());
 
         if (!$user) {
             return response()->json([
@@ -249,7 +249,7 @@ class EmpresaController extends Controller
         }
         return response()->json([
             "message" => "Cambios realizados correctamente.",
-            "data" => $user,
+            "obj" => $user,
             "state" => 200
         ], 200);
 
