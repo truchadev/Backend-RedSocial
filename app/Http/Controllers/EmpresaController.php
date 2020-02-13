@@ -83,7 +83,7 @@ class EmpresaController extends Controller
            ->join('estados', 'estados.id', '=', 'oferta__users.estado_id')
             ->where('ofertas.empresa_id', '=', $request->user()->id)
             ->where('oferta_id', '=', $param)
-            ->select('ofertas.id', 'users.name', 'prim_apellido', 'seg_apellido', 'users.email', 'users.about', 'users.direccion', 'imagen', 'sexo',
+            ->select('ofertas.id','oferta__users.id as ofer_user_id', 'users.name', 'prim_apellido', 'seg_apellido', 'users.email', 'users.about', 'users.direccion', 'imagen', 'sexo',
                 'users.telefono', 'estudios.tipo_est', 'name_tec', 'experiencia__users.puesto', 'experiencia__users.descripcion', 'fecha_inicio', 'fecha_fin', 'estado_id', 'estados.tipo_est as tipo_estado')
             ->get();
 
@@ -161,16 +161,16 @@ class EmpresaController extends Controller
 
                 if ($ofertaUser && $ofertaId){
 
-                    return response()->json(["data" => [
+                    return response()->json([
                         "message" => "Ofeta eliminada correctamente.",
-                        "state" => 200]
+                        "state" => 200
                     ], 200);
 
                 }else {
 
-                    return response()->json(["data" => [
+                    return response()->json([
                         "error" => "Error. La oferta no se ha eliminado correctamente",
-                        "state" => 400]
+                        "state" => 400
                     ], 400);
                 }
 
