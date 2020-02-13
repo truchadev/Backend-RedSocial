@@ -52,17 +52,17 @@ class EmpresaController extends Controller
     //Muestra ofertas por ID de empresa
     public function showOfertas(Request $request)
     {
-       //return $request->user();
+        //return $request->user();
         $ofertasEmpresa = DB::table('ofertas')
             ->where('empresa_id', '=', $request->user()->id)
             ->get();
 
-        if(!$ofertasEmpresa){
+        if (!$ofertasEmpresa) {
             return response()->json([
                 "error" => "No se ha encontrado nada",
                 "state" => 400
             ], 400);
-        }else {
+        } else {
             return response()->json([
                 "message" => "Petición aceptada.",
                 "obj" => $ofertasEmpresa,
@@ -80,25 +80,25 @@ class EmpresaController extends Controller
             ->join('estudios', 'estudios.id', '=', 'users.estudios_id')
             ->join('tecnologias', 'tecnologias.id', '=', 'users.tecnologia_id')
             ->join('experiencia__users', 'experiencia__users.id', '=', 'users.id')
-           ->join('estados', 'estados.id', '=', 'oferta__users.estado_id')
+            ->join('estados', 'estados.id', '=', 'oferta__users.estado_id')
             ->where('ofertas.empresa_id', '=', $request->user()->id)
             ->where('oferta_id', '=', $param)
-            ->select('ofertas.id','oferta__users.id as ofer_user_id', 'users.name', 'prim_apellido', 'seg_apellido', 'users.email', 'users.about', 'users.direccion', 'imagen', 'sexo',
+            ->select('ofertas.id', 'oferta__users.id as ofer_user_id', 'users.name', 'prim_apellido', 'seg_apellido', 'users.email', 'users.about', 'users.direccion', 'imagen', 'sexo',
                 'users.telefono', 'estudios.tipo_est', 'name_tec', 'experiencia__users.puesto', 'experiencia__users.descripcion', 'fecha_inicio', 'fecha_fin', 'estado_id', 'estados.tipo_est as tipo_estado')
             ->get();
 
-        if(!$usuariosOfertas){
+        if (!$usuariosOfertas) {
             return response()->json([
-                "error" => "No se ha encontrado nada",
-                "state" => 400]
-            , 400);
+                    "error" => "No se ha encontrado nada",
+                    "state" => 400]
+                , 400);
 
-        }else {
+        } else {
             return response()->json([
-                "message" => "Petición aceptada.",
-                "obj" => $usuariosOfertas,
-                "state" => 200]
-            , 200);
+                    "message" => "Petición aceptada.",
+                    "obj" => $usuariosOfertas,
+                    "state" => 200]
+                , 200);
         }
     }
 
@@ -106,40 +106,40 @@ class EmpresaController extends Controller
     public function nuevaOferta(Request $request)
     {
 
-       // return $request->user();
-            $newOferta = DB::table('ofertas')
+        // return $request->user();
+        $newOferta = DB::table('ofertas')
             ->where('ofertas.empresa_id', '=', $request->user()->id)
             ->insert([
-            'puesto' => $request->input('puesto'),
-            'ciudad_id' => $request->input('ciudad_id'),
-            'salario_min' => $request->input('salario_min'),
-            'salario_max' => $request->input('salario_max'),
-            'descripcion' => $request->input('descripcion'),
-            'experiencia_min' => $request->input('experiencia_min'),
-            'empresa_id' => $request->input('empresa_id'),
-            'estudios_min_id' => $request->input('estudios_min_id'),
-            'tipo_contrato_id' => $request->input('tipo_contrato_id'),
-            'tipo_jornada_id' => $request->input('tipo_jornada_id'),
+                'puesto' => $request->input('puesto'),
+                'ciudad_id' => $request->input('ciudad_id'),
+                'salario_min' => $request->input('salario_min'),
+                'salario_max' => $request->input('salario_max'),
+                'descripcion' => $request->input('descripcion'),
+                'experiencia_min' => $request->input('experiencia_min'),
+                'empresa_id' => $request->input('empresa_id'),
+                'estudios_min_id' => $request->input('estudios_min_id'),
+                'tipo_contrato_id' => $request->input('tipo_contrato_id'),
+                'tipo_jornada_id' => $request->input('tipo_jornada_id'),
                 'tecnologia_id' => $request->input('tecnologia_id'),
 
                 'created_at' => null,
-            'updated_at' => null
-        ]);
+                'updated_at' => null
+            ]);
 
-            if(!$newOferta){
+        if (!$newOferta) {
 
-                return response()->json(["data" => [
-                    "error" => "Error. La oferta no se ha creado correctamente",
-                    "state" => 400]
-                ], 400);
+            return response()->json(["data" => [
+                "error" => "Error. La oferta no se ha creado correctamente",
+                "state" => 400]
+            ], 400);
 
-            }else {
-                return response()->json(["data" => [
-                    "message" => "Oferta creada correctamente.",
-                    "data" => $newOferta,
-                    "state" => 200]
-                ], 200);
-            }
+        } else {
+            return response()->json(["data" => [
+                "message" => "Oferta creada correctamente.",
+                "data" => $newOferta,
+                "state" => 200]
+            ], 200);
+        }
     }
 
 
@@ -147,32 +147,32 @@ class EmpresaController extends Controller
     public function deleteOferta(Request $request, $param)
     {
 
-            $ofertaUser = DB::table('oferta__users')
-                ->join('ofertas', 'ofertas.id', '=',  'oferta__users.oferta_id')
-                ->where('oferta__users.oferta_id', '=', $param)
-                ->where('ofertas.empresa_id', '=', $request->user()->id)
-                ->delete();
+        $ofertaUser = DB::table('oferta__users')
+            ->join('ofertas', 'ofertas.id', '=', 'oferta__users.oferta_id')
+            ->where('oferta__users.oferta_id', '=', $param)
+            ->where('ofertas.empresa_id', '=', $request->user()->id)
+            ->delete();
 
-            $ofertaId = DB::table('ofertas')
-                ->where('ofertas.empresa_id', '=', $request->user()->id)
-                ->where('id', '=', $param)
-                ->delete();
+        $ofertaId = DB::table('ofertas')
+            ->where('ofertas.empresa_id', '=', $request->user()->id)
+            ->where('id', '=', $param)
+            ->delete();
 
 
-                if ($ofertaUser && $ofertaId){
+        if ($ofertaUser && $ofertaId) {
 
-                    return response()->json([
-                        "message" => "Ofeta eliminada correctamente.",
-                        "state" => 200
-                    ], 200);
+            return response()->json([
+                "message" => "Ofeta eliminada correctamente.",
+                "state" => 200
+            ], 200);
 
-                }else {
+        } else {
 
-                    return response()->json([
-                        "error" => "Error. La oferta no se ha eliminado correctamente",
-                        "state" => 400
-                    ], 400);
-                }
+            return response()->json([
+                "error" => "Error. La oferta no se ha eliminado correctamente",
+                "state" => 400
+            ], 400);
+        }
 
     }
 
@@ -196,15 +196,14 @@ class EmpresaController extends Controller
             ->delete();
 
 
-
-        if ($userOferta && $oferta && $empresa){
+        if ($userOferta && $oferta && $empresa) {
 
             return response()->json(["data" => [
                 "message" => "Empresa eliminada correctamente.",
                 "state" => 200]
             ], 200);
 
-        }else {
+        } else {
 
             return response()->json(["data" => [
                 "error" => "Error. La empresa no se ha eliminado correctamente",
@@ -214,30 +213,11 @@ class EmpresaController extends Controller
     }
 
 
-
-
-
-
     //Editar Perfil
     public function editar(Request $request)
     {
 
         $request->user();
-//        $validator = $this->validate($request, [
-//            'name' => 'max:255',
-//            'cif' => 'max:255',
-//            'name_responsable'=> 'alpha|max:255',
-//            'email' => 'email|unique:empresas',
-//            'password' => 'min:6',
-//            'about' => 'max:255',
-//            'ciudad_id' => 'numeric',
-//            'direccion' => 'max:255',
-//            'imagen_log' => 'url',
-//            'telefono' => 'numeric',
-//            'web' => 'url',
-//        ]);
-
-//        $datos = $request->all();
 
         $user = DB::table('empresas')
             ->where('id', $request->user()->id)
@@ -258,9 +238,10 @@ class EmpresaController extends Controller
 
     // MOSTRAR TODAS LAS EMPRESAS POR NOMBRE
 
-    public function showEmpresasName (){
+    public function showEmpresasName()
+    {
         $empresa = DB::table('empresas')
-            ->select('id','name')
+            ->select('id', 'name')
             ->get();
 
         if (!$empresa) {
@@ -268,14 +249,12 @@ class EmpresaController extends Controller
                 "error" => "Algo falló en el servidor. Inténtelo más tarde."
             ]]);
         }
-        return response()->json( [
-            "message" => "Aceptada",
-            "obj" => $empresa,
-            "state" => 200]
-        , 200);
+        return response()->json([
+                "message" => "Aceptada",
+                "obj" => $empresa,
+                "state" => 200]
+            , 200);
     }
-
-
 
 
 }

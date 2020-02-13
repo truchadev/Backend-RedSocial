@@ -40,7 +40,7 @@ class ExperienciaUserController extends Controller
         ], 200);
 
         //route
-      //  Route::post('user/experiencia/create', 'ExperienciaUserController@create');
+        //  Route::post('user/experiencia/create', 'ExperienciaUserController@create');
     }
 
     /**
@@ -89,7 +89,7 @@ class ExperienciaUserController extends Controller
 
 
         //route
-     //   Route::post('user/experiencia/update/{id}', 'ExperienciaUserController@update');
+        //   Route::post('user/experiencia/update/{id}', 'ExperienciaUserController@update');
     }
 
 
@@ -129,7 +129,7 @@ class ExperienciaUserController extends Controller
 
 
         //route
-      //  Route::post('user/experiencia/destroy/{id}', 'ExperienciaUserController@destroy');
+        //  Route::post('user/experiencia/destroy/{id}', 'ExperienciaUserController@destroy');
     }
 
 
@@ -156,6 +156,6 @@ class ExperienciaUserController extends Controller
         ], 200);
 
         //route
-      //  Route::get('user/experiencia/show', 'ExperienciaUserController@show');
+        //  Route::get('user/experiencia/show', 'ExperienciaUserController@show');
     }
 }

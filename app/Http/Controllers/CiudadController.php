@@ -8,19 +8,20 @@ use Illuminate\Http\Request;
 
 class CiudadController extends Controller
 {
-    public function show(){
+    public function show()
+    {
 
         $ciudades = DB::table('ciudads')->get();
 
-        if(!$ciudades){
+        if (!$ciudades) {
 
             return response()->json(["data" => [
                 "error" => "Error. La oferta no se ha eliminado correctamente",
                 "state" => 400]
             ], 400);
 
-        }else {
-            return response()->json( [
+        } else {
+            return response()->json([
                 "message" => "Oferta creada correctamente.",
                 "obj" => $ciudades,
                 "state" => 200

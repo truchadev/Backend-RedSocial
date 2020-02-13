@@ -44,7 +44,7 @@ class EstudioUserController extends Controller
         ], 200);
 
         //route
-       // Route::post('user/estudios/create', 'EstudioUserController@create');
+        // Route::post('user/estudios/create', 'EstudioUserController@create');
     }
 
     /**
@@ -81,7 +81,7 @@ class EstudioUserController extends Controller
 
         }
         //route
-       // Route::delete('user/estudios/destroy/{id}', 'EstudioUserController@destroy');
+        // Route::delete('user/estudios/destroy/{id}', 'EstudioUserController@destroy');
     }
 
     /**
@@ -154,6 +154,6 @@ class EstudioUserController extends Controller
         ], 200);
 
         //route
-       // Route::get('user/estudios/show', 'EstudioUserController@show');
+        // Route::get('user/estudios/show', 'EstudioUserController@show');
     }
 }

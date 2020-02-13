@@ -98,47 +98,14 @@ class PassportController extends Controller
             'password' => 'required|min:6',
         ]);
 
-//        $credentials = [
-//            'email' => $request->email,
-//            'password' => $request->password
-//        ];
 
-//        //SI ES CORRECTO EL lOGIN CAMBIAMOS VALORES DE TABLA
-//        $credentials['active'] = 1;
-//        $credentials['deleted_at'] = null;
-
-//        if (Auth::guard('web')->attempt($credentials)) {
-//            $token = auth()->user()->createToken('TutsForWeb')->accessToken;
-//            return response()->json(['token' => $token], 200);
-//        } else {
-//            return response()->json(['error' => 'UnAuthorised'], 401);
-//        }
-
-//        return $request->password . ' = ' . Hash::check('TutsForWeb', $request->password);
-//        $user = User::where('password', $request->password);
-
-//        $userPassword = DB::table('users')->where('email', $request->email)->first()->password;
-//        $userPassword = DB::table('users')->where('email', $request->email)->first();
         $user = DB::table('users')->where('email', $request->email)->get();
-//    return $user[0]->password;
+
         if (Hash::check($request->password, $user[0]->password)) {
             $resultToken = $user->createToken('TutsForWeb');
             return response()->json(['data' => $user, 'token' =>$resultToken], 200);
         }
-//        if (($request->email === auth()->user()->email && Hash::check('TutsForWeb', $request->email) === auth()->user()->password)) {
-//            return response()->json(['data' => auth()->user()], 200);
-//        } else {
-//            return response()->json(['error' => 'UnAuthorised'], 401);
-//        }
-//
-//
-//        if (comprueba()) {
-//            $token = auth()->user()->createToken('TutsForWeb')->accessToken;
-////            return response()->json(['token' => $token], 200);
-//            return response()->json(['data' => auth()->user()], 200);
-//        } else {
-//            return response()->json(['error' => 'UnAuthorised'], 401);
-//        }
+
     }
 
     //LOGOUT

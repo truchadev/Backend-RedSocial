@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
 class JLaboralController extends Controller
 {
-    public function show(){
+    public function show()
+    {
 
         $jornada = DB::table('j__laborals')->get();
 
-        if(!$jornada){
+        if (!$jornada) {
 
             return response()->json([
                 "error" => "Error. La oferta no se ha eliminado correctamente",
                 "state" => 400
             ], 400);
 
-        }else {
+        } else {
             return response()->json([
                 "message" => "Oferta creada correctamente.",
                 "obj" => $jornada,

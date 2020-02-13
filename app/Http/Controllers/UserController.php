@@ -68,22 +68,6 @@ class UserController extends Controller
     public function update(Request $request)
     {
 
-//        $validator = $this->validate($request, [
-//            'name' => 'alpha|max:255',
-//            'prim_apellido' => 'alpha|max:255',
-//            'seg_apellido' => 'alpha|max:255',
-//            'email' => 'email|unique:users',
-//            'password' => 'min:6',
-//            'about' => 'max:6|alpha_num',
-//            'ciudad_id' => 'numeric',
-//            'direccion' => 'max:255',
-//            'imagen' => 'url',
-//            'sexo' => 'alpha',
-//            'especialidad' => '',
-//            'telefono' => 'numeric',
-//        ]);
-
-
         $user = DB::table('users')
             ->where('id', $request->user()->id)
             ->update($request->all());
